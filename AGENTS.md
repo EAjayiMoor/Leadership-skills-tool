@@ -26,4 +26,4 @@ The source PRD is a draft based on a meeting transcript. Distinguish a recorded 
 
 ## Skills
 
-Use a task-specific skill when it applies. Expo skills are relevant only if the chosen client includes Expo. Maestro skills are relevant when executable UI flows exist; its browser support needs validation before it becomes the main web gate. Superpowers methods can guide planning, debugging, review and verification; repository instructions and the user's request govern scope. See `docs/skills.md` for provenance and activation.
+Use a task-specific skill when it applies. The Vercel React best practices skill applies to React/Next.js performance work if that stack is chosen; it does not decide the framework. Expo skills are relevant only if the chosen client includes Expo. Maestro skills are relevant when executable UI flows exist; its browser support needs validation before it becomes the main web gate. Superpowers methods can guide planning, debugging, review and verification; repository instructions and the user's request govern scope. See `docs/skills.md` for provenance and activation.
