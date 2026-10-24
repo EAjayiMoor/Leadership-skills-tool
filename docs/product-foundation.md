@@ -2,7 +2,7 @@
 
 ## Working proposition
 
-Help assessment consultants run a tailored leadership assessment with less manual preparation and consolidation while preserving control over evidence, interpretation and publication.
+Help assessment consultants conduct a tailored leadership assessment in one application. Automate repeatable ingestion, preparation, analysis drafts, recommendations and report assembly while preserving human control over evidence, interpretation and publication.
 
 ## Initial user and workflow hypothesis
 
@@ -12,14 +12,7 @@ The supplied [manual-workflow context](manual-workflow-observations.md) shows ho
 
 ## First product slice
 
-One engagement using approved synthetic or anonymised sample data:
-
-1. Configure themes, participant groups and question sets without code changes.
-2. Import agreed sample survey and interview files with clear validation messages.
-3. Assemble and edit an interview briefing pack.
-4. Attach source evidence to consultant-authored cohort findings.
-5. Produce a heatmap only after the method is agreed.
-6. Review and export a report from approved findings.
+The [proposed first-slice blueprint](first-slice-blueprint.md) covers one complete web application journey: configure an assessment, ingest sample evidence, prepare draft profiles and interview material, capture interview evidence, develop reviewable cohort findings, draft recommendations, and approve and export a report. Demonstrate it with a reference-shaped synthetic case and different synthetic scenarios. Exact input formats, assessment rules and permissions remain Design decisions.
 
 ## Outcomes to baseline and measure
 

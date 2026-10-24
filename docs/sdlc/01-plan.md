@@ -8,7 +8,7 @@ Decide what problem the first release solves, for whom, and how success will be 
 
 - Observe the current assessment process with consultants; inventory sample survey, briefing, interview, heatmap and report artefacts, with source and permission to use each.
 - Identify the primary user, buyer, decision maker, reviewers and people affected by the output. Document their jobs, pain points and current alternatives; separate observation from assumptions.
-- Choose whether the first proof replays a completed assessment or supports a new one. Map the smallest complete workflow, its exclusions and manual handoffs.
+- Review the [first-slice blueprint](../first-slice-blueprint.md): a reference-shaped scenario and other synthetic cases should demonstrate one automated journey. Validate its boundaries, exclusions and remaining manual handoffs with the assessment team.
 - Agree the first data class: synthetic, approved anonymised or live. Do not use live evidence without the governance gate.
 - Prioritise the proposed requirements in the [register](../requirements-register.md): accept, change, defer or reject each in-scope item with an owner.
 - Baseline setup time, interview preparation time, consolidation time, rework and report quality; set measurable targets, a measurement method and a review date.
@@ -23,7 +23,7 @@ Product brief, user and stakeholder map, current and target journey, prioritised
 ## Exit evidence
 
 - Product brief and first-slice hypothesis in [product foundation](../product-foundation.md) are reviewed with assessment users.
-- D-01, D-02, D-03, D-09 and D-10 have named owners and decisions.
+- D-01, D-02, D-03, D-09 and D-10 have named owners and decisions or explicit evidence plans.
 - Accepted first-slice requirements, exclusions and data class are recorded.
 - Build-ready sample artefacts are inventoried, safe to use and sufficient to test one full journey.
 - Success measures have a baseline or a dated plan to measure it. Material risks have owners.

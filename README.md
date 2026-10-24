@@ -19,6 +19,8 @@ Start with the [operating model](docs/sdlc/00-operating-model.md) for source hie
 
 Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in [decision-log.md](docs/decision-log.md), proposed requirements in [requirements-register.md](docs/requirements-register.md), and skill coverage in [skill-audit.md](docs/skill-audit.md).
 
+The [proposed first-slice blueprint](docs/first-slice-blueprint.md) describes the first complete automated assessment journey and its synthetic test scenarios. Review it with the assessment team before turning it into screen designs and build tasks.
+
 The [manual-workflow context](docs/manual-workflow-observations.md) records how supplied completed reports and a thematic workbook help us understand the current process. They do not define product rules. The identifying source files are kept outside this public repository.
 
 ## Current status
