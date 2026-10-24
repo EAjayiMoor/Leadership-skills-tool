@@ -6,7 +6,7 @@ Status: proposed for product and assessment-team review, 24 October 2026. This b
 
 Turn the current manual leadership assessment workflow into one connected application. It should automate repeatable preparation, ingestion, organisation, drafting and report assembly; use AI where it adds useful, evidence-grounded intelligence; and let an assessor inspect, edit or reject sensitive interpretations before publication. The supplied manual examples inform the workflow but do not define the product's rules.
 
-The first demonstration should work for a reference-shaped synthetic assessment **and** additional synthetic scenarios with different roles, themes and evidence quality. This tests whether the workflow is reusable rather than a hard-coded recreation of one engagement.
+The first demonstration should work for a reference-shaped synthetic assessment **and** additional synthetic client scenarios with different roles, themes and evidence quality. This tests whether the workflow is reusable rather than a hard-coded recreation of one engagement. In this blueprint, a **profile** means the example client's scenario context; it is not a generated profile of an assessed leader.
 
 ## Primary user and outcome
 
@@ -16,9 +16,9 @@ The working primary user is an assessment consultant or lead. In the first slice
 
 | Step | Application behaviour in the first slice | Human control and evidence | Related draft requirements |
 | --- | --- | --- | --- |
-| 1. Set up | Create an engagement, purpose, participant groups, themes and role-specific question sets. Show what inputs are still needed. | Consultant checks the configuration before evidence is collected or imported. | FR-01–06 |
+| 1. Set up | Create or edit a synthetic client scenario profile describing context, assessment purpose, participant groups and relevant themes. Use it to configure role-specific question sets and show missing inputs. | Consultant checks the scenario and configuration; AI suggestions must not invent facts about a real client. | FR-01–06 |
 | 2. Ingest and organise | Accept agreed sample survey, interview and role-context inputs; extract fields, flag missing/unsupported content and organise source items by engagement and theme. | User resolves mapping errors and can inspect the original source behind each extracted item. | FR-07–12, SEC-02–04 |
-| 3. Prepare profiles and interviews | Assemble a draft engagement context profile and restricted participant briefing profile from permitted sources; suggest interview focus and editable questions. | Generated statements cite source items, show gaps or contradictions, and remain drafts until reviewed. The exact profile outputs need confirmation. | FR-05, FR-13–17 |
+| 3. Prepare interviews | Assemble an interview brief from permitted survey responses and role context; suggest focus areas and editable questions informed by the client scenario. | Suggested questions and factual briefing statements show their source or basis and remain drafts until reviewed. | FR-13–17 |
 | 4. Capture interview evidence | Record or import interview questions, notes and responses against the right engagement and participant record. | Consultant can correct attribution and restrict access to individual material. Automatic transcription is outside this slice. | FR-16, SEC-02–04 |
 | 5. Analyse and synthesise | Organise evidence by agreed themes and propose draft cohort findings, uncertainty notes and a heatmap only if its method has been approved. | Assessor checks every material claim against evidence; can edit, reject or withhold it. No automatic individual score, ranking or employment recommendation. | FR-18–21 |
 | 6. Recommend | Draft possible recommendations and a light forward plan linked to approved findings. | Assessor reviews relevance and wording; recommendations are not published automatically. | FR-23, FR-24, FR-26 |
@@ -28,8 +28,8 @@ This is a **thin end-to-end slice**: one usable path through every important sta
 
 ## Demonstration and test scenarios
 
-1. **Reference-shaped case:** A wholly synthetic engagement modelled on the supplied process, with several roles, tailored questions, survey and interview evidence, thematic findings and a reviewed report.
-2. **Different context:** A synthetic organisation or sector with a changed theme set and role-specific questions, configured without code changes. The same journey should produce a distinct, appropriate report.
+1. **Reference-shaped case:** A wholly synthetic client scenario based on the supplied process, with several roles, tailored questions, survey and interview evidence, thematic findings and a reviewed report.
+2. **Different context:** A new synthetic client scenario with a changed organisation or sector, theme set and role-specific questions, configured without code changes. The same journey should produce a distinct, appropriate report.
 3. **Incomplete or conflicting evidence:** Missing role context, unanswered questions and contradictory inputs. The app should flag limitations, avoid unsupported conclusions and let the assessor correct the record.
 4. **Review and access:** A draft recommendation is rejected or edited; a client-facing role cannot see restricted source evidence or unapproved outputs.
 
@@ -51,10 +51,10 @@ Live client evidence, native survey distribution and reminders, automatic transc
 
 ## Decisions needed before design is complete
 
-- Define the exact profile outputs and which parts may be AI-drafted or shared.
+- Define the client scenario profile fields and whether the app generates a draft scenario or starts from prepared synthetic examples. Keep invented scenario facts clearly labelled as synthetic.
 - Select first input and export formats, sample schemas and report template.
 - Agree the assessment and heatmap interpretation method, including uncertainty and evidence support.
-- Approve role permissions for raw evidence, drafts, individual profiles and final reports.
+- Approve role permissions for raw evidence, interview briefs, analysis drafts and final reports.
 - Choose the web stack, data/AI processing boundaries, evaluation approach and release environment.
 - Set owners, manual baseline and measurable thresholds for usefulness and time saved.
 

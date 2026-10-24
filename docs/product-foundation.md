@@ -12,7 +12,7 @@ The supplied [manual-workflow context](manual-workflow-observations.md) shows ho
 
 ## First product slice
 
-The [proposed first-slice blueprint](first-slice-blueprint.md) covers one complete web application journey: configure an assessment, ingest sample evidence, prepare draft profiles and interview material, capture interview evidence, develop reviewable cohort findings, draft recommendations, and approve and export a report. Demonstrate it with a reference-shaped synthetic case and different synthetic scenarios. Exact input formats, assessment rules and permissions remain Design decisions.
+The [proposed first-slice blueprint](first-slice-blueprint.md) covers one complete web application journey: create a synthetic client scenario profile, configure an assessment, ingest sample evidence, prepare interview material, capture interview evidence, develop reviewable cohort findings, draft recommendations, and approve and export a report. Demonstrate it with a reference-shaped synthetic case and different synthetic client scenarios. Exact input formats, assessment rules and permissions remain Design decisions.
 
 ## Outcomes to baseline and measure
 
