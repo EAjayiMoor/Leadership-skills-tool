@@ -1,0 +1,25 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+coverage/
+.expo/
+.next/
+test-results/
+playwright-report/
+
+# Client or assessment evidence
+data/private/
+data/raw/
+samples/client/
+
+# Operating system and editor noise
+.DS_Store
+.idea/
