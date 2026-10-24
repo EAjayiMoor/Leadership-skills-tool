@@ -40,6 +40,9 @@ Status values: proposed, accepted, changed, deferred, rejected. A feature is com
 | SEC-06 | Agree retention and deletion rules | Proposed | Governance owner | D-07 |
 | SEC-07 | Review AI processing before use with client data | Proposed; live-data gate | Governance owner | D-07 |
 | SEC-08 | Review before client-facing publication | Proposed | Assessment owner | TBD |
+| UI-01 | Apply the supplied Moorhouse visual and content standard to the first web interface | Proposed; standard supplied | Product/design owner | D-12; `docs/standards/Moorhouse-UI-Standard.md` |
+| UI-02 | Support keyboard, screen-reader, zoom, contrast, reduced-motion and responsive use against WCAG 2.2 AA | Proposed; exceeds standard's 2.1 AA floor | Product/design owner | D-12; Design/Test stage evidence |
+| UI-03 | Validate the standard's tokens and component patterns with target consultants in dense working and decision views | Proposed | Product/design owner | D-12; usability evidence |
 
 ## Cross-cutting product boundaries
 

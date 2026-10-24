@@ -2,9 +2,11 @@
 
 This repository is the working home for a consultant-led leadership assessment product. The first product slice should let an assessment team configure an engagement, ingest approved evidence, prepare interviews, develop traceable cohort findings, and produce a reviewed report.
 
-The source requirements are in `Leadership_Assessment_Product_Requirements.docx` (held outside this repository). They are a draft derived from a meeting transcript. A statement in that document marked “confirmed” was discussed in the meeting; it is not automatically approved for development. The stage documents below turn that source into explicit decisions and evidence gates.
+The [redacted source requirements](docs/source/Leadership_Assessment_Product_Requirements_redacted.docx) are included in this public repository; the named original is held by the product owner outside it. They are a draft derived from a meeting transcript. A statement marked “confirmed” was discussed in the meeting; it is not automatically approved for development. The [Moorhouse UI standard](docs/standards/Moorhouse-UI-Standard.md) is also included as the design reference. See the [source note](docs/source/README.md) for the publication boundary.
 
 ## AI-assisted delivery lifecycle
+
+Start with the [operating model](docs/sdlc/00-operating-model.md) for source hierarchy, AI controls, accountability and evidence rules. These stage files are working checklists. They become release-ready only when the open decisions and stage evidence are filled in.
 
 | Stage | Working file | Exit evidence |
 | --- | --- | --- |
@@ -19,4 +21,4 @@ Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in
 
 ## Current status
 
-The repository is at **Plan**. The first interface is web-first; its framework has not been chosen. No production architecture, hosting arrangement, scoring method, or live-client-data processing has been approved. The first prototype should use approved anonymised or synthetic examples.
+The repository is at **Plan**. The first interface is web-first; its framework has not been chosen. The UI standard's Next.js, Tailwind and component examples are implementation references, not a stack decision. No production architecture, hosting arrangement, heatmap method, or live-client-data processing has been approved. The first prototype should use approved anonymised or synthetic examples.

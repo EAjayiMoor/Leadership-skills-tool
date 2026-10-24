@@ -19,6 +19,8 @@ playwright-report/
 data/private/
 data/raw/
 samples/client/
+docs/source/Leadership_Assessment_Product_Requirements.docx
+docs/source/*_original.docx
 
 # Operating system and editor noise
 .DS_Store

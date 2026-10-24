@@ -40,6 +40,7 @@ This Codex session also has `skill-creator`, `skill-installer`, `openai-docs`, d
 2. **Expo fit:** Expo skills are available but should not determine the web framework. The first interface is web-first, while a later native app remains an open product choice. [Expo skill catalogue](https://docs.expo.dev/skills/).
 3. **Maestro fit:** Maestro's browser support is beta and Chromium-only. It can be piloted for flows, but that is not the current basis for the main browser coverage decision. [Maestro web support](https://docs.maestro.dev/get-started/supported-platform/web-browser).
 4. **Skill volume:** Seventeen installed skills are already substantial. Add a skill only when it changes decisions or makes a repeated task more reliable. Keep skills short and scoped; keep changing product facts in stage documents and decision records. [Official OpenAI skill guidance](https://learn.chatgpt.com/docs/build-skills#best-practices).
+5. **Vercel compiled guide links:** Three relative links in the upstream `react-best-practices/AGENTS.md` do not resolve from that file; the corresponding rule files exist under `rules/`. Use the installed `SKILL.md` and `rules/` files directly. Keep the upstream copy unchanged until a reviewed update is available.
 
 ## Proposed next additions
 
