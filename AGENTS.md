@@ -10,6 +10,7 @@ The source PRD is a draft based on a meeting transcript. Distinguish a recorded 
 
 1. Read the context relevant to the task: `README.md`, `docs/sdlc/00-operating-model.md`, the applicable stage file, and decision or requirement records when the work affects them. Read the UI standard for interface work.
 2. State the user problem, expected outcome, acceptance checks and data sensitivity for each work item.
+   For build work, locate its sprint in `docs/build-sprint-plan.md` and record the skills activated, sprint validation and evidence needed. Read the linked skill when that task starts; do not assume an installed skill means its underlying test tool is installed.
 3. Make the smallest coherent change that proves the next product or technical assumption.
 4. Keep evidence linked to claims: tests, screenshots, review notes, research or measured results as appropriate.
 5. Update the relevant stage document and decision log when a decision changes.

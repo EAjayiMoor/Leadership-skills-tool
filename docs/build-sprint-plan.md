@@ -8,6 +8,19 @@ Build one connected web journey: create a **synthetic client scenario profile**,
 
 Each sprint ends with a runnable demonstration, acceptance results, reviewed changes and an updated requirements/decision record. Use source-linked drafts and explicit human review. Keep the identifying manual examples and live client evidence outside the public repository. The [SDLC stage files](sdlc/00-operating-model.md) remain the gates for Plan, Design, Build, Test, Deploy and Maintain.
 
+## Skill activation and validation in every sprint
+
+Skills are instructions used **when their task begins**, not a one-off setup activity or proof that the result works. Before a ticket is built, the owner reads its linked skill and relevant product/design rules. The selected skill, why it applies, and any unavailable tool are recorded on the ticket. The [skill strategy](skills.md) and [skill audit](skill-audit.md) distinguish installed skills from proposed additions and executable tools.
+
+1. **Shape the ticket:** Use [brainstorming](../.agents/skills/brainstorming/SKILL.md) for unresolved user or design choices, then [writing-plans](../.agents/skills/writing-plans/SKILL.md) for an implementation plan once the specification and stack are settled. Link requirement IDs, acceptance examples, design, data class and owner.
+2. **Build and check the change:** Use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for behaviour with meaningful rules or failure cases. Use [systematic-debugging](../.agents/skills/systematic-debugging/SKILL.md) when a check fails. Run the relevant unit, integration, browser, accessibility or method checks as part of the sprint that adds the behaviour.
+3. **Review and verify:** Use [requesting-code-review](../.agents/skills/requesting-code-review/SKILL.md), [receiving-code-review](../.agents/skills/receiving-code-review/SKILL.md) and [verification-before-completion](../.agents/skills/verification-before-completion/SKILL.md) before claiming a ticket is done. Record actual results; an AI-generated test or review is not acceptance evidence until run and inspected.
+4. **Demonstrate with people:** The product owner checks user outcome; the assessment-method owner checks interpretations; the design owner checks interface quality; the governance owner checks access and data boundaries where affected. Log defects, corrections and decisions before taking the next sprint's scope.
+
+For **UI tickets from Sprint 1 onward**, first read the [Moorhouse UI standard](standards/Moorhouse-UI-Standard.md) and approved screen designs. If React/Next.js is selected, activate [Vercel React best practices](../.agents/skills/react-best-practices/SKILL.md) while writing and reviewing components, data fetching and performance. It does not cover usability, visual fidelity, accessibility or security: check those separately against the [Design](sdlc/02-design.md) and [Test](sdlc/04-test.md) criteria. If another web framework is selected, choose guidance for that framework. Expo skills stay inactive unless an Expo client is actually commissioned.
+
+For **browser flows**, choose and install the agreed web runner before the first executable UI flow; it is not installed merely because a skill exists. Playwright remains the working recommendation for cross-browser checks. Activate the installed [Maestro flow-testing skill](../.agents/skills/maestro-flow-testing/SKILL.md) only for an optional browser pilot after the app runs, or for a later mobile app; do not use a passing Maestro flow as proof of accessibility, method or data security. Add a Playwright-specific skill if the team adopts that workflow and verify skill discovery from a task opened at this repository root.
+
 ## Sprint 0 — Agree the build contract
 
 **Goal:** Make the first slice safe and specific enough for implementation.
@@ -16,6 +29,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 
 **Done when:** The Plan and Design exit evidence is recorded; every open decision blocking the next sprint has an owner and resolution; synthetic fixtures and acceptance examples are approved for public-repo use. In particular, resolve D-01, D-04 through D-07, D-09 through D-12 as they affect the first build. Do not implement a heatmap from the example workbook.
 
+**Validation:** Walk the journey and two scenario definitions with assessment users; review the input/output contract, permissions and worked method examples with their owners; confirm baseline measures and test cases for accepted requirements. Record disagreements and decisions.
+
+**Skills at this point:** Use [brainstorming](../.agents/skills/brainstorming/SKILL.md) to resolve open choices and [writing-plans](../.agents/skills/writing-plans/SKILL.md) after decisions are made. Verify that a repo-root Codex task discovers these skills. Do not create an assessment-method or AI-evaluation skill until the approved method or AI feature specification exists.
+
 ## Sprint 1 — A navigable assessment journey
 
 **Goal:** A consultant can see the entire workflow and its review boundaries in one web app.
@@ -23,6 +40,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 **Work:** Set up the chosen app and repeatable checks; apply the UI standard to a small component set; build engagement navigation and states for setup, ingestion, interview preparation, evidence, findings, recommendations and report approval. Load a synthetic demonstration fixture. Show draft versus approved content and block export until approval. Persist enough state to resume the demonstration. Mark unfinished functions clearly in the interface.
 
 **Done when:** A user can move through the seven stages with the synthetic fixture, recover after a reload, and cannot mistake demonstration placeholders for completed analysis. Keyboard navigation, labels and visible focus work in the new screens. The build and agreed checks pass. This is a workflow skeleton, not a claim that assessment analysis is implemented.
+
+**Validation:** Run build, static checks and a browser smoke flow for navigation, reload and blocked export. Manually inspect the UI against the supplied standard at desktop and narrow widths; check keyboard order, focus, labels and the draft/approved distinction. A consultant confirms the stage names and workflow make sense.
+
+**Skills at this point:** Activate the UI standard and, if React/Next.js is selected, [Vercel React best practices](../.agents/skills/react-best-practices/SKILL.md) for component and data-loading work. Use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for approval-state rules and [verification-before-completion](../.agents/skills/verification-before-completion/SKILL.md) at review. Set up the agreed browser runner now; Maestro is optional for a pilot flow.
 
 **Requirements:** FR-01, FR-04, FR-06, SEC-08, UI-01, UI-02.
 
@@ -34,6 +55,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 
 **Done when:** Both synthetic scenarios have meaningfully different organisation contexts, role groups, themes and questions; each can be saved, reopened and edited. Missing fields are explained. Existing evidence and drafts are not silently reassigned when configuration changes.
 
+**Validation:** Test required-field and versioning rules, save/reopen behaviour, and the second scenario without code edits. Run a browser flow for setup and editing; observe a consultant completing it. Check form labels, errors, focus movement and responsive layout.
+
+**Skills at this point:** Use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for configuration/versioning rules; use the UI standard and conditional React skill for forms. Use [systematic-debugging](../.agents/skills/systematic-debugging/SKILL.md) for failed scenario changes rather than patching symptoms.
+
 **Requirements:** FR-01–06.
 
 ## Sprint 3 — Ingest and trace evidence
@@ -43,6 +68,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 **Work:** Implement the agreed first import formats for survey responses, interview material and role context. Validate schema and attribution; show a preview and correction path; store source identifiers and links from extracted items back to permitted source records. Handle duplicate, malformed, incomplete and interrupted imports. Enforce engagement separation and restricted raw-evidence access in the prototype roles.
 
 **Done when:** Both scenarios import their sample inputs; a consultant can inspect and correct mappings; invalid records do not disappear silently; cross-engagement or client-facing access to raw evidence is denied. Provenance survives save and reload.
+
+**Validation:** Exercise valid, missing, malformed, duplicate, oversized and interrupted inputs; check source attribution, retry and correction. Test role and engagement boundaries through API/direct URL as well as the visible interface. Inspect logs and test artefacts for restricted content. Run the import browser flow and a manual usability check of preview/error states.
+
+**Skills at this point:** Use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for parsing, attribution and access rules, then [requesting-code-review](../.agents/skills/requesting-code-review/SKILL.md) with a security/provenance focus. Create a focused sensitive-evidence review skill only after the approved role and data model exists; it supplements, not replaces, these tests.
 
 **Requirements:** FR-07–12, SEC-02–04.
 
@@ -54,6 +83,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 
 **Done when:** A consultant prepares a brief for more than one role, edits or rejects suggested questions, records interview evidence, and can trace factual statements to their sources. Missing source material produces a limitation, not invented detail.
 
+**Validation:** Compare the brief with permitted source items; test missing and contradictory responses, reviewer edits/rejections, attribution corrections and restricted access. Run a prepare-and-capture browser journey with two roles. Have an assessor judge whether suggestions are usable and whether unsupported statements are absent.
+
+**Skills at this point:** Use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for source selection and review-state rules; use the UI standard and conditional React skill for briefing and editing screens. If AI produces suggestions, activate a product-specific AI-output-evaluation skill only after its approved inputs, outputs and labelled examples are defined; record model/prompt versions and failures.
+
 **Requirements:** FR-13–17, SEC-02–04.
 
 ## Sprint 5 — Draft findings and recommendations
@@ -63,6 +96,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 **Work:** Organise evidence by configured theme; propose cohort findings with supporting and contrary evidence, uncertainty and an explicit draft state. Add assessor accept/edit/reject actions and audit events. Draft recommendations and a light forward plan linked to accepted findings. Add a heatmap only if D-04 has an approved method and worked test cases; otherwise use a labelled thematic findings view.
 
 **Done when:** The reference-shaped and different-context scenarios produce distinct drafts; incomplete and conflicting evidence is surfaced; every material claim can be inspected against its sources; rejected drafts cannot flow to the report. No automatic individual score, ranking or employment recommendation appears. Method-owner evaluation records both useful and failed suggestions.
+
+**Validation:** Run approved method examples and counterexamples, sparse/conflicting/withdrawn evidence cases, source-link checks and review-state tests. Evaluate AI drafts against a labelled set for support, uncertainty and unsupported claims. The assessment-method owner reviews actual outputs and corrections. If a heatmap is included, test its approved aggregation and display rules separately.
+
+**Skills at this point:** Use the approved assessment-method skill if Sprint 0 produced one; use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for synthesis and state rules and the scoped AI-output-evaluation skill for generated drafts. Use [requesting-code-review](../.agents/skills/requesting-code-review/SKILL.md) with method, provenance and permissions as review focuses.
 
 **Requirements:** FR-18–21, FR-23, FR-24, FR-26, SEC-05. FR-19 is conditional on D-04.
 
@@ -74,6 +111,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 
 **Done when:** A reviewer can edit, reject, approve, export and withdraw a report; unapproved findings and recommendations stay out; client-facing access shows only the approved output; exports match the reviewed version. The full journey runs for both synthetic scenarios.
 
+**Validation:** Run browser journeys for approval, rejection, revision, export and withdrawal; compare each export with the exact approved version. Test direct URL/API access, role changes, raw-evidence exclusion, audit history and export failure/retry. Review visual output and accessibility of the approval screen with intended users.
+
+**Skills at this point:** Use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for publication and version rules, the UI standard and conditional React skill for review screens, and [Maestro flow testing](../.agents/skills/maestro-flow-testing/SKILL.md) only if its optional web pilot was chosen. Use [verification-before-completion](../.agents/skills/verification-before-completion/SKILL.md) before claiming the end-to-end journey works.
+
 **Requirements:** FR-21–24, FR-26, SEC-02–05, SEC-08.
 
 ## Sprint 7 — Evaluate and release a limited synthetic-data pilot
@@ -83,6 +124,10 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 **Work:** Run end-to-end, permission, method, accessibility, recovery and AI-output evaluations against the scenarios in the blueprint. Observe consultants using the app; compare task time and correction effort with the Sprint 0 baseline. Fix release-blocking issues; document limitations, support route, monitoring, rollback and the exact permitted data class. Release only to the agreed pilot audience after the [Deploy gate](sdlc/05-deploy.md).
 
 **Done when:** Accepted requirements have linked test evidence; no unowned critical issue remains; product, method and governance owners have recorded the relevant decisions; a pilot user can complete the journey without developer intervention. Approval for a synthetic-data pilot does not authorise live client evidence.
+
+**Validation:** Re-run the complete suite on the exact release candidate across agreed browsers, roles and both scenarios. Include manual screen-reader/keyboard/zoom checks, method-owner evaluation, misuse and access tests, failure recovery, performance measures and observed consultant tasks. Record failures, fixes and retests in the [Test stage](sdlc/04-test.md); complete the separate release record and rollback rehearsal.
+
+**Skills at this point:** Use [systematic-debugging](../.agents/skills/systematic-debugging/SKILL.md) on failures, [verification-before-completion](../.agents/skills/verification-before-completion/SKILL.md) for every release claim and [finishing-a-development-branch](../.agents/skills/finishing-a-development-branch/SKILL.md) for final integration. Browser flows run through the agreed runner; any Maestro pilot is supplementary. Hosting-specific operational skills can be selected only after the environment is chosen.
 
 **Requirements:** All accepted first-slice requirements and applicable security/UI requirements.
 
@@ -99,6 +144,6 @@ Each sprint ends with a runnable demonstration, acceptance results, reviewed cha
 
 ## How to turn a sprint into build tickets
 
-Before starting a sprint, the technical lead and product owner break its work into small, independently reviewable tickets. Each ticket names the user outcome, accepted requirement IDs, exact behaviour and error states, data class, design link, test examples, owner and demonstration. The selected stack and approved contracts should then drive file-level implementation plans. Do not fill those plans with guessed schemas, AI providers, heatmap thresholds or permissions.
+Before starting a sprint, the technical lead and product owner break its work into small, independently reviewable tickets. Each ticket names the user outcome, accepted requirement IDs, exact behaviour and error states, data class, design link, test examples, owner, applicable skills and demonstration. The selected stack and approved contracts should then drive file-level implementation plans. Do not fill those plans with guessed schemas, AI providers, heatmap thresholds or permissions.
 
 At sprint review, record what was demonstrated, test evidence, user feedback, changed decisions, remaining risks and the next sprint's scope. Update the [requirements register](requirements-register.md) and [decision log](decision-log.md) rather than treating this plan as immutable.
