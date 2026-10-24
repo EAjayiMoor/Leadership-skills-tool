@@ -15,7 +15,7 @@ The source requirements are in `Leadership_Assessment_Product_Requirements.docx`
 | 5 Deploy | [05-deploy.md](docs/sdlc/05-deploy.md) | Release decision, rollback and data-use approval |
 | 6 Maintain | [06-maintain.md](docs/sdlc/06-maintain.md) | Monitoring, feedback, fixes and improvement decisions |
 
-Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in [decision-log.md](docs/decision-log.md), proposed requirements in [requirements-register.md](docs/requirements-register.md), and skill sources in [skills.md](docs/skills.md).
+Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in [decision-log.md](docs/decision-log.md), proposed requirements in [requirements-register.md](docs/requirements-register.md), and skill coverage in [skill-audit.md](docs/skill-audit.md).
 
 ## Current status
 

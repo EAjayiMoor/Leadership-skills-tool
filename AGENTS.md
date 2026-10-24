@@ -8,7 +8,7 @@ The source PRD is a draft based on a meeting transcript. Distinguish a recorded 
 
 ## Delivery process
 
-1. Read `README.md`, the relevant `docs/sdlc/` stage file, `docs/decision-log.md` and `docs/requirements-register.md` before changing the product.
+1. Read the context relevant to the task: `README.md` for orientation, the applicable `docs/sdlc/` stage, and decision or requirement records when the work affects them.
 2. State the user problem, expected outcome, acceptance checks and data sensitivity for each work item.
 3. Make the smallest coherent change that proves the next product or technical assumption.
 4. Keep evidence linked to claims: tests, screenshots, review notes, research or measured results as appropriate.

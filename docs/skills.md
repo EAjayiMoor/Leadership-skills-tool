@@ -2,6 +2,8 @@
 
 Skills are operating guidance for AI agents. They do not replace product decisions, official framework documentation, tests or human approval.
 
+See the [skill audit](skill-audit.md) for the complete installed inventory, stage coverage and recommended additions.
+
 | Capability | Preferred source | When it applies | Repository treatment |
 | --- | --- | --- | --- |
 | Expo | Official `expo/skills` or official Codex Expo plugin | Later Expo app design, implementation, upgrades and EAS work | Keep available if requested, but do not assume Expo is the web stack |
