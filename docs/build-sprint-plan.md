@@ -33,11 +33,25 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Skills at this point:** Use [brainstorming](../.agents/skills/brainstorming/SKILL.md) to resolve open choices and [writing-plans](../.agents/skills/writing-plans/SKILL.md) after decisions are made. Verify that a repo-root Codex task discovers these skills. Do not create an assessment-method or AI-evaluation skill until the approved method or AI feature specification exists.
 
-## Sprint 1 — A navigable assessment journey
+## Sprint 1 — UI look, feel and design system
+
+**Goal:** Establish a recognisable, usable visual foundation before building the full workflow.
+
+**Work:** Translate the [Moorhouse UI standard](standards/Moorhouse-UI-Standard.md) into the selected web stack: colour and semantic tokens, typography, spacing, buttons, forms, navigation, status, tables/cards and review states. Produce a runnable design gallery and realistic screen prototypes for the consultant home, client scenario setup, evidence review and report approval using synthetic content. Set the information hierarchy, tone of voice, density and responsive behaviour. Inventory missing brand assets and decide how the standard's open items, including dark mode, apply to this first release. Record approved exceptions rather than silently changing the standard.
+
+**Done when:** Product/design owners approve the visual direction and key screen patterns; consultants can identify the next action, distinguish draft from approved content, and read dense evidence views without confusion. The shared tokens and components are ready for use in Sprint 2; unfinished screens are labelled as prototypes.
+
+**Validation:** Compare the implemented gallery and screens with the UI standard at desktop and narrow widths. Check colour contrast, keyboard focus, labels, zoom/reflow and reduced-motion behaviour; inspect key states visually, including empty, loading, error and approval. Observe intended consultants completing short tasks in the prototypes and record changes made from their feedback. Automated accessibility checks supplement manual checks.
+
+**Skills at this point:** Use [brainstorming](../.agents/skills/brainstorming/SKILL.md) to explore screen alternatives and [writing-plans](../.agents/skills/writing-plans/SKILL.md) for the component implementation plan. If React/Next.js is selected, activate [Vercel React best practices](../.agents/skills/react-best-practices/SKILL.md) while coding and reviewing components. Use [requesting-code-review](../.agents/skills/requesting-code-review/SKILL.md) and [verification-before-completion](../.agents/skills/verification-before-completion/SKILL.md) before accepting the gallery. The UI standard and accessibility checks remain the visual and usability authority; the React skill is performance guidance.
+
+**Requirements:** UI-01–03; visual and interaction groundwork for FR-01–06, FR-10–12, FR-20–22 and SEC-08.
+
+## Sprint 2 — A navigable assessment journey
 
 **Goal:** A consultant can see the entire workflow and its review boundaries in one web app.
 
-**Work:** Set up the chosen app and repeatable checks; apply the UI standard to a small component set; build engagement navigation and states for setup, ingestion, interview preparation, evidence, findings, recommendations and report approval. Load a synthetic demonstration fixture. Show draft versus approved content and block export until approval. Persist enough state to resume the demonstration. Mark unfinished functions clearly in the interface.
+**Work:** Extend the Sprint 1 app and shared components into engagement navigation and states for setup, ingestion, interview preparation, evidence, findings, recommendations and report approval. Add repeatable checks and a synthetic demonstration fixture. Show draft versus approved content and block export until approval. Persist enough state to resume the demonstration. Mark unfinished functions clearly in the interface.
 
 **Done when:** A user can move through the seven stages with the synthetic fixture, recover after a reload, and cannot mistake demonstration placeholders for completed analysis. Keyboard navigation, labels and visible focus work in the new screens. The build and agreed checks pass. This is a workflow skeleton, not a claim that assessment analysis is implemented.
 
@@ -47,7 +61,7 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Requirements:** FR-01, FR-04, FR-06, SEC-08, UI-01, UI-02.
 
-## Sprint 2 — Configure different client scenarios
+## Sprint 3 — Configure different client scenarios
 
 **Goal:** A consultant can configure the reference-shaped scenario and a second scenario without code changes.
 
@@ -61,7 +75,7 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Requirements:** FR-01–06.
 
-## Sprint 3 — Ingest and trace evidence
+## Sprint 4 — Ingest and trace evidence
 
 **Goal:** Source material enters the application reliably and remains inspectable.
 
@@ -75,7 +89,7 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Requirements:** FR-07–12, SEC-02–04.
 
-## Sprint 4 — Prepare and capture interviews
+## Sprint 5 — Prepare and capture interviews
 
 **Goal:** The app reduces repeated manual interview preparation and keeps completed evidence connected.
 
@@ -89,7 +103,7 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Requirements:** FR-13–17, SEC-02–04.
 
-## Sprint 5 — Draft findings and recommendations
+## Sprint 6 — Draft findings and recommendations
 
 **Goal:** Turn collected evidence into useful, reviewable cohort-level synthesis.
 
@@ -103,7 +117,7 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Requirements:** FR-18–21, FR-23, FR-24, FR-26, SEC-05. FR-19 is conditional on D-04.
 
-## Sprint 6 — Review, report and controlled export
+## Sprint 7 — Review, report and controlled export
 
 **Goal:** A reviewer can produce an approved client-facing output from accepted material.
 
@@ -117,7 +131,7 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Requirements:** FR-21–24, FR-26, SEC-02–05, SEC-08.
 
-## Sprint 7 — Evaluate and release a limited synthetic-data pilot
+## Sprint 8 — Evaluate and release a limited synthetic-data pilot
 
 **Goal:** Prove the first slice is useful, trustworthy and supportable for its stated audience.
 
@@ -135,12 +149,13 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 | Scenario | First exercised | Full acceptance by |
 | --- | --- | --- |
-| Reference-shaped synthetic client with several roles and themes | Sprint 1 | Sprint 6 |
-| Different synthetic client with changed context, roles, themes and questions | Sprint 2 | Sprint 6 |
-| Missing, duplicate and malformed input, plus interrupted import | Sprint 3 | Sprint 7 |
-| Sparse and conflicting evidence; draft edited or rejected | Sprint 5 | Sprint 7 |
-| Restricted source access, unauthorised export and approval reversal | Sprint 3 | Sprint 7 |
-| Keyboard, screen-reader, zoom and responsive consultant journey | Sprint 1 | Sprint 7 |
+| Reference-shaped synthetic client with several roles and themes | Sprint 2 | Sprint 7 |
+| Different synthetic client with changed context, roles, themes and questions | Sprint 3 | Sprint 7 |
+| Missing, duplicate and malformed input, plus interrupted import | Sprint 4 | Sprint 8 |
+| Sparse and conflicting evidence; draft edited or rejected | Sprint 6 | Sprint 8 |
+| Restricted source access, unauthorised export and approval reversal | Sprint 4 | Sprint 8 |
+| UI standard, visual direction and accessible key screen patterns | Sprint 1 | Sprint 1; recheck through Sprint 8 |
+| Keyboard, screen-reader, zoom and responsive consultant journey | Sprint 1 | Sprint 8 |
 
 ## How to turn a sprint into build tickets
 
