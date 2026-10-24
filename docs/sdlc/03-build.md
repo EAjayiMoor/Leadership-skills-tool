@@ -4,6 +4,8 @@
 
 Implement the agreed design in small vertical slices that can be demonstrated and checked.
 
+Use the [first-slice sprint plan](../build-sprint-plan.md) to sequence the work and record a demo and acceptance evidence for each increment. Its sprint numbers are an ordering guide; approved designs and decisions govern implementation.
+
 ## Working sequence
 
 1. Set up the chosen application stack, local setup instructions, dependency lockfile, lint/type/build checks, CI and a safe sample-data environment.

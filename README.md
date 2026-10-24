@@ -21,6 +21,8 @@ Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in
 
 The [proposed first-slice blueprint](docs/first-slice-blueprint.md) describes the first complete automated assessment journey and its synthetic test scenarios. Review it with the assessment team before turning it into screen designs and build tasks.
 
+The [sprint plan](docs/build-sprint-plan.md) sequences that journey from build decisions through a limited synthetic-data pilot, with a demonstrable outcome and acceptance criteria for each sprint. Sprint dates and capacity remain to be agreed.
+
 The [manual-workflow context](docs/manual-workflow-observations.md) records how supplied completed reports and a thematic workbook help us understand the current process. They do not define product rules. The identifying source files are kept outside this public repository.
 
 ## Current status
