@@ -9,6 +9,7 @@ Show that the product works for the real workflow, produces trustworthy outputs 
 - **Traceability:** Map each accepted requirement and important risk to a test, owner and result. Recheck changed requirements and affected flows.
 - **Method:** Compare thematic findings and heatmap worked examples against the approved assessment method, including sparse, contradictory and withheld evidence. A method owner reviews the result.
 - **Data:** Cover valid, missing, malformed, duplicate, conflicting and oversized imports; verify validation messages, provenance, deletion and safe failure.
+- **Manual-workflow reconciliation:** Recalculate row totals from confirmed `X` marks and flag mismatches; test report variations and malformed DOCX package metadata without losing source content.
 - **Workflow:** Run a complete assessment journey with approved sample data, including edit, review, rejection, reapproval and export.
 - **Permissions and privacy:** Exercise each role and engagement boundary; check raw versus approved output access, direct URLs, exports, audit records and accidental exposure in logs.
 - **Human control and AI:** Generated drafts cannot become published outputs without review. If AI features exist, run a labelled evaluation set for factual support, missing evidence, uncertainty, unsupported claims and reviewer override; record model/prompt versions and failures.

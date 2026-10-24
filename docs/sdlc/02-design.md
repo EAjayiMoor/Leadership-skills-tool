@@ -10,6 +10,7 @@ Turn the agreed first slice into an understandable user journey, defensible asse
 - Define the data model and lifecycle for engagement, participant group, question set, response, source evidence, theme, finding, approval and output. Show versioning, deletion and audit events.
 - Specify provenance from each published claim to permitted evidence, including how missing, conflicting or withdrawn evidence affects a finding.
 - Agree heatmap meaning, categories, aggregation, uncertainty, minimum group size and review process before designing its display. Use worked examples and counterexamples.
+- Use the [observed manual workflow](../manual-workflow-observations.md) to distinguish completed individual evidence, consultant-confirmed gap marks, derived counts, proposed actions and approved cohort findings. Define how a confirmed mark is traced to source evidence and corrected or withdrawn.
 - Agree roles and permissions for raw evidence, working findings and approved reports. Specify client isolation, least privilege and who can publish or revoke an output.
 - Choose input schemas, validation rules, output formats and error handling; document any manual conversion step.
 - Decide hosting, data ownership, retention, backup and AI-processing boundaries before designing for live data. Model misuse and accidental disclosure paths.

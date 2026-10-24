@@ -5,10 +5,10 @@ Record each decision with an owner, date, rationale, evidence and impact. An ope
 | ID | Decision needed | Current position | Owner | Evidence or next action |
 | --- | --- | --- | --- | --- |
 | D-01 | Primary first user | Consultant-led is the working recommendation | Product owner to confirm | Observe assessment team workflow |
-| D-02 | First proof | Replay a completed assessment or run a new one | Open | Product and assessment leads to choose |
+| D-02 | First proof | Replay a completed assessment or run a new one; completed records now available for a replay | Open | Product and assessment leads to choose |
 | D-03 | First interface | Web first, confirmed by product owner on 24 October 2026; framework open | Product owner | Choose web stack during design; assess Expo only if later cross-platform need is real |
-| D-04 | Heatmap semantics and method | Open; implementation gated | Assessment-method owner to define | Review existing heatmap and supporting method |
-| D-05 | Input and output formats | Open | Assessment lead to supply sample artefacts |
+| D-04 | Heatmap semantics and method | `X` means confirmed individual gap and totals count `X`, confirmed by product owner on 24 October 2026; remaining interpretation and publication rules open | Assessment-method owner to define | Define who confirms a gap, evidence threshold, review/withdrawal, cohort display and whether heatmap colour means frequency, severity or something else; see manual-workflow observations |
+| D-05 | Input and output formats | Completed DOCX reports and a thematic XLSX workbook supplied as process evidence; supported import/export formats still open | Assessment lead and technical owner | Select first-slice schemas and validation rules; see manual-workflow observations |
 | D-06 | Findings and evidence permissions | Open | Governance owner to approve role matrix |
 | D-07 | Hosting and data ownership | Open; live evidence gated | Client, legal and technical owners to decide |
 | D-08 | Recommendations in first slice | Open | Product owner to decide after output review |
