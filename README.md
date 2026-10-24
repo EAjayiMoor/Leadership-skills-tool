@@ -19,7 +19,7 @@ Start with the [operating model](docs/sdlc/00-operating-model.md) for source hie
 
 Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in [decision-log.md](docs/decision-log.md), proposed requirements in [requirements-register.md](docs/requirements-register.md), and skill coverage in [skill-audit.md](docs/skill-audit.md).
 
-The [manual-workflow observations](docs/manual-workflow-observations.md) record what was learned from supplied completed reports and a thematic workbook. Those identifying source files are deliberately kept outside this public repository.
+The [manual-workflow context](docs/manual-workflow-observations.md) records how supplied completed reports and a thematic workbook help us understand the current process. They do not define product rules. The identifying source files are kept outside this public repository.
 
 ## Current status
 
