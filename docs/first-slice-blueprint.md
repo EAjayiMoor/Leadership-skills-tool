@@ -1,6 +1,6 @@
 # First-slice product blueprint
 
-Status: proposed for product and assessment-team review, 24 October 2026. This blueprint translates the product owner's direction into a demonstrable web application journey. It is a scope proposal, not approval to process live client data or to automate professional judgement.
+Status: high-level product flow confirmed by the product owner on 24 October 2026; detailed implementation choices remain for the relevant sprints. This blueprint translates that direction into a demonstrable web application journey. It is not approval to process live client data or to automate professional judgement.
 
 ## Goal
 
@@ -57,4 +57,4 @@ Live client evidence, native survey distribution and reminders, automatic transc
 - Before thematic synthesis: agree how evidence supports a cohort finding and how uncertainty is shown. Define heatmap rules only if a heatmap is included.
 - Before reporting and release: agree the report format, release environment, manual baseline and useful measures of time saved and correction effort.
 
-Record these in the [decision log](decision-log.md) when each feature is planned. The [Plan stage](sdlc/01-plan.md) should review the journey with assessment users; it does not need to settle later feature details before UI work begins.
+Record these in the [decision log](decision-log.md) when each feature is planned. The [Plan stage](sdlc/01-plan.md) should test the confirmed journey with assessment users; it does not need to settle later feature details before UI work begins.

@@ -19,7 +19,7 @@ Start with the [operating model](docs/sdlc/00-operating-model.md) for source hie
 
 Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in [decision-log.md](docs/decision-log.md), proposed requirements in [requirements-register.md](docs/requirements-register.md), and skill coverage in [skill-audit.md](docs/skill-audit.md).
 
-The [proposed first-slice blueprint](docs/first-slice-blueprint.md) describes the first complete automated assessment journey and its synthetic test scenarios. Review it with the assessment team before turning it into screen designs and build tasks.
+The [first-slice blueprint](docs/first-slice-blueprint.md) describes the product-owner-confirmed automated assessment journey and its synthetic test scenarios. Test the journey with assessment users as the screens and build tasks take shape.
 
 The [sprint plan](docs/build-sprint-plan.md) sequences that journey from build decisions through a limited synthetic-data pilot, with a demonstrable outcome and acceptance criteria for each sprint. Sprint dates and capacity remain to be agreed.
 
