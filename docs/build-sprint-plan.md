@@ -21,17 +21,17 @@ For **UI tickets from Sprint 1 onward**, first read the [Moorhouse UI standard](
 
 For **browser flows**, choose and install the agreed web runner before the first executable UI flow; it is not installed merely because a skill exists. Playwright remains the working recommendation for cross-browser checks. Activate the installed [Maestro flow-testing skill](../.agents/skills/maestro-flow-testing/SKILL.md) only for an optional browser pilot after the app runs, or for a later mobile app; do not use a passing Maestro flow as proof of accessibility, method or data security. Add a Playwright-specific skill if the team adopts that workflow and verify skill discovery from a task opened at this repository root.
 
-## Sprint 0 — Agree the build contract
+## Sprint 0 — Set up the first build
 
-**Goal:** Make the first slice safe and specific enough for implementation.
+**Goal:** Make enough decisions to start the UI sprint with confidence. Detailed decisions are made before the feature that needs them, not all at once.
 
-**Work:** Review the blueprint with assessment users; name product, method, technical, design and governance owners; accept or change first-slice requirements; define the client scenario fields, two synthetic cases, import/export contracts, evidence and review states, role permissions, and the report structure. Select the web stack, test runner, prototype environment and AI processing boundary. Define the thematic/heatmap method with worked examples or explicitly defer the heatmap. Baseline current manual effort and set initial success thresholds.
+**Work:** Confirm the consultant as the first user and name a product decision owner and a technical owner. Agree the two synthetic client scenarios and the small set of screens to prototype. Choose the web stack and where the prototype will run. Decide which sample material can safely be used. Set a simple measure of success: can a consultant complete the journey, correct drafts, and save time compared with the current process? Record who will approve evidence interpretation and data access when those features are built.
 
-**Done when:** The Plan and Design exit evidence is recorded; every open decision blocking the next sprint has an owner and resolution; synthetic fixtures and acceptance examples are approved for public-repo use. In particular, resolve D-01, D-04 through D-07, D-09 through D-12 as they affect the first build. Do not implement a heatmap from the example workbook.
+**Done when:** The owners, web stack, prototype environment, two safe synthetic scenarios, priority UI screens and simple success checks are recorded. Sprint 1 can begin without guessing. Exact import formats, permissions, AI processing, report format and heatmap rules are decided before the sprints that implement them. Live client data stays out of the prototype until separately approved.
 
-**Validation:** Walk the journey and two scenario definitions with assessment users; review the input/output contract, permissions and worked method examples with their owners; confirm baseline measures and test cases for accepted requirements. Record disagreements and decisions.
+**Validation:** Walk the proposed journey and two scenario outlines with at least one intended consultant. Check that the sample material is synthetic and safe for the public repository. Record what they would expect to see in the first UI prototype and any disagreement about the workflow.
 
-**Skills at this point:** Use [brainstorming](../.agents/skills/brainstorming/SKILL.md) to resolve open choices and [writing-plans](../.agents/skills/writing-plans/SKILL.md) after decisions are made. Verify that a repo-root Codex task discovers these skills. Do not create an assessment-method or AI-evaluation skill until the approved method or AI feature specification exists.
+**Skills at this point:** Use [brainstorming](../.agents/skills/brainstorming/SKILL.md) for the UI and workflow choices and [writing-plans](../.agents/skills/writing-plans/SKILL.md) to prepare Sprint 1 tasks. Verify that a repo-root Codex task discovers these skills. No assessment-method or AI-evaluation skill is needed yet.
 
 ## Sprint 1 — UI look, feel and design system
 
@@ -113,7 +113,7 @@ For **browser flows**, choose and install the agreed web runner before the first
 
 **Validation:** Run approved method examples and counterexamples, sparse/conflicting/withdrawn evidence cases, source-link checks and review-state tests. Evaluate AI drafts against a labelled set for support, uncertainty and unsupported claims. The assessment-method owner reviews actual outputs and corrections. If a heatmap is included, test its approved aggregation and display rules separately.
 
-**Skills at this point:** Use the approved assessment-method skill if Sprint 0 produced one; use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for synthesis and state rules and the scoped AI-output-evaluation skill for generated drafts. Use [requesting-code-review](../.agents/skills/requesting-code-review/SKILL.md) with method, provenance and permissions as review focuses.
+**Skills at this point:** Use an assessment-method skill only if the assessment owner has supplied repeatable rules that warrant one; use [test-driven-development](../.agents/skills/test-driven-development/SKILL.md) for synthesis and state rules and a scoped AI-output-evaluation skill for generated drafts if AI is included. Use [requesting-code-review](../.agents/skills/requesting-code-review/SKILL.md) with evidence, human review and permissions as review focuses.
 
 **Requirements:** FR-18–21, FR-23, FR-24, FR-26, SEC-05. FR-19 is conditional on D-04.
 

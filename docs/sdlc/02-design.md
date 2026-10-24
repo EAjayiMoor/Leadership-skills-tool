@@ -9,7 +9,7 @@ Turn the agreed first slice into an understandable user journey, defensible asse
 - Map the journey from engagement setup to report approval, including permissions, missing inputs, import failures, review, revision, export and withdrawal.
 - Define the data model and lifecycle for engagement, participant group, question set, response, source evidence, theme, finding, approval and output. Show versioning, deletion and audit events.
 - Specify provenance from each published claim to permitted evidence, including how missing, conflicting or withdrawn evidence affects a finding.
-- Agree heatmap meaning, categories, aggregation, uncertainty, minimum group size and review process before designing its display. Use worked examples and counterexamples.
+- If a heatmap is included, agree its meaning, categories, aggregation, uncertainty, minimum group size and review process before building it. Use worked examples and counterexamples. A heatmap decision does not block earlier UI and workflow work.
 - Use the [manual workflow context](../manual-workflow-observations.md) to understand how role context, survey and interview material, thematic synthesis and reporting connect. Validate the intended product method with assessment owners rather than copying the example workbook's mechanics.
 - Agree roles and permissions for raw evidence, working findings and approved reports. Specify client isolation, least privilege and who can publish or revoke an output.
 - Choose input schemas, validation rules, output formats and error handling; document any manual conversion step.
@@ -26,7 +26,7 @@ Service journey and screen flows, information architecture, component/token mapp
 ## Exit evidence
 
 - Reviewed journey and screen flows, including onboarding, empty, loading, failure, approval and export states.
-- Agreed assessment and heatmap method, with examples and a named method owner.
+- Before thematic synthesis is implemented, a named assessment owner agrees how evidence supports a finding, how uncertainty is shown and how drafts are reviewed. A heatmap needs its own approved rules and examples only if it is included.
 - Data and permissions model, including client separation, retention, deletion and source provenance.
 - Architecture, threat and privacy reviews appropriate to the intended data environment; open risks are owned.
 - UI-standard mapping, accessibility acceptance criteria and usability evidence from intended users.

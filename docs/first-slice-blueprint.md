@@ -49,13 +49,12 @@ All scenarios use synthetic or expressly approved anonymised data. The supplied 
 
 Live client evidence, native survey distribution and reminders, automatic transcription, enterprise integrations, cross-client benchmarking, learning-management workflows, automatic individual scores/rankings, employment recommendations and automatic external publication. These can be reconsidered through the decision log after the first slice is tested.
 
-## Decisions needed before design is complete
+## Decisions at the point they are needed
 
-- Define the client scenario profile fields and whether the app generates a draft scenario or starts from prepared synthetic examples. Keep invented scenario facts clearly labelled as synthetic.
-- Select first input and export formats, sample schemas and report template.
-- Agree the assessment and heatmap interpretation method, including uncertainty and evidence support.
-- Approve role permissions for raw evidence, interview briefs, analysis drafts and final reports.
-- Choose the web stack, data/AI processing boundaries, evaluation approach and release environment.
-- Set owners, manual baseline and measurable thresholds for usefulness and time saved.
+- Before Sprint 1: choose the web stack, safe synthetic scenarios, priority UI screens and product/technical owners.
+- Before configuration and ingestion: define the client scenario fields, first input formats and sample schemas. Keep invented scenario facts clearly labelled as synthetic.
+- Before restricted evidence or generated drafts: agree role access, permitted AI inputs, review actions and evaluation examples.
+- Before thematic synthesis: agree how evidence supports a cohort finding and how uncertainty is shown. Define heatmap rules only if a heatmap is included.
+- Before reporting and release: agree the report format, release environment, manual baseline and useful measures of time saved and correction effort.
 
-These are recorded in the [decision log](decision-log.md). The [Plan stage](sdlc/01-plan.md) should review this blueprint with assessment users before it becomes a build commitment.
+Record these in the [decision log](decision-log.md) when each feature is planned. The [Plan stage](sdlc/01-plan.md) should review the journey with assessment users; it does not need to settle later feature details before UI work begins.
