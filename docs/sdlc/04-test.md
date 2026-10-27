@@ -1,5 +1,7 @@
 # 4 Test
 
+Sprint 1 UI evidence is available in [the local prototype record](../evidence/sprint-1-ui.md): successful build/lint/type checks, two fixture tests, 27 browser cases, screenshots and an independent-review fix pass. Manual screen-reader/zoom review, other browser engines and intended-consultant acceptance remain outstanding. These results do not validate an assessment method or approve live data.
+
 ## Purpose
 
 Show that the product works for the real workflow, produces trustworthy outputs and handles sensitive evidence correctly.
@@ -29,3 +31,11 @@ Record test results, observed issues, severity, fixes and remaining risks. A rel
 ## AI use
 
 AI can draft test cases and help investigate failures. People review whether generated cases cover the actual method and risks. Test assertions and the claim that a release is ready require observed evidence.
+
+## 26 October 2026 — Profile intake
+
+Profile intake increment checks and independent-review disposition are recorded in [integration evidence](../evidence/profile-intake.md). Do not infer cross-browser, manual screen-reader or live-data acceptance from the Chromium suite.
+
+## Connected demo validation
+
+D-19 extends the local demonstration through prepared evidence and human-reviewed illustrative outputs. See [connected-demo evidence](../evidence/connected-demo.md) for actual checks, regression failures/fixes and limits. A demo review does not establish a validated assessment method or authorised production/client-data use.

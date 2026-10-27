@@ -7,8 +7,8 @@ See the [skill audit](skill-audit.md) for the complete installed inventory, stag
 | Capability | Preferred source | When it applies | Repository treatment |
 | --- | --- | --- | --- |
 | Expo | Official `expo/skills` or official Codex Expo plugin | Later Expo app design, implementation, upgrades and EAS work | Keep available if requested, but do not assume Expo is the web stack |
-| React performance | Vercel `react-best-practices` | Writing, reviewing or refining React/Next.js code if that stack is chosen | Use the relevant rules; this skill does not choose the framework or replace accessibility and security checks |
-| Web end-to-end testing | Official Playwright guidance | Main browser journey and cross-browser checks | Activate after a runnable web interface exists |
+| React performance | Vercel `react-best-practices` | Writing, reviewing or refining the selected Next.js/React application | Use the relevant rules; this skill does not replace visual design, accessibility and security checks |
+| Web end-to-end testing | Official Playwright guidance | Main browser journey and cross-browser checks | Playwright and Chromium active for Sprint 1; other browser engines remain unverified |
 | Maestro | Official Maestro documentation plus a reviewed project skill | Optional browser pilot now; mobile flows if a native app is built | Web support is beta and Chromium-only; evaluate before adopting as the main web test runner |
 | Superpowers | `obra/superpowers` Codex plugin or reviewed skills | Discovery, specification, task plans, debugging and verification | Use selected methods; avoid copying a framework blindly |
 | Product-specific | This repository's `AGENTS.md` and stage files | Every work item | Keep short, explicit and versioned |
@@ -26,7 +26,7 @@ See the [skill audit](skill-audit.md) for the complete installed inventory, stag
 | Skill | Source and revision | Scope | Status |
 | --- | --- | --- | --- |
 | Expo overview, project structure, router, data fetching | https://github.com/expo/skills at `d5caf7fdf8b4854351f05841a7e315ac87ad7d24` | Web-first decision; only activate for Expo work | Repository-local skills installed |
-| Vercel React best practices | https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-best-practices | React/Next.js performance guidance, conditional on the web framework choice | Repository-local skill installed |
+| Vercel React best practices | https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-best-practices | React/Next.js performance guidance for the selected web stack | Repository-local skill installed |
 | Maestro flow testing | https://docs.maestro.dev/ | Project-authored guidance; optional web pilot | Local skill added |
 | Superpowers discovery, plans, worktrees, execution, tests, debugging, review and verification | https://github.com/obra/superpowers at `2ce8aa15d05bd57213e6f746f953aafb7ded7a8b` | Core workflow skills; apply when relevant | Repository-local skills installed |
 

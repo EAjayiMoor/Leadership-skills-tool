@@ -1,0 +1,130 @@
+[
+  {
+    "screen": "home",
+    "theme": "light",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(24, 16, 24)",
+      "--text-muted": "rgb(103, 97, 110)",
+      "--surface": "rgb(255, 255, 255)",
+      "--surface-muted": "rgb(245, 243, 246)",
+      "--primary": "rgb(60, 16, 83)",
+      "--primary-text": "rgb(255, 255, 255)",
+      "--focus-ring": "rgb(24, 110, 126)",
+      "--border-strong": "rgb(146, 129, 158)"
+    }
+  },
+  {
+    "screen": "setup",
+    "theme": "light",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(24, 16, 24)",
+      "--text-muted": "rgb(103, 97, 110)",
+      "--surface": "rgb(255, 255, 255)",
+      "--surface-muted": "rgb(245, 243, 246)",
+      "--primary": "rgb(60, 16, 83)",
+      "--primary-text": "rgb(255, 255, 255)",
+      "--focus-ring": "rgb(24, 110, 126)",
+      "--border-strong": "rgb(146, 129, 158)"
+    }
+  },
+  {
+    "screen": "evidence",
+    "theme": "light",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(24, 16, 24)",
+      "--text-muted": "rgb(103, 97, 110)",
+      "--surface": "rgb(255, 255, 255)",
+      "--surface-muted": "rgb(245, 243, 246)",
+      "--primary": "rgb(60, 16, 83)",
+      "--primary-text": "rgb(255, 255, 255)",
+      "--focus-ring": "rgb(24, 110, 126)",
+      "--border-strong": "rgb(146, 129, 158)"
+    }
+  },
+  {
+    "screen": "report",
+    "theme": "light",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(24, 16, 24)",
+      "--text-muted": "rgb(103, 97, 110)",
+      "--surface": "rgb(255, 255, 255)",
+      "--surface-muted": "rgb(245, 243, 246)",
+      "--primary": "rgb(60, 16, 83)",
+      "--primary-text": "rgb(255, 255, 255)",
+      "--focus-ring": "rgb(24, 110, 126)",
+      "--border-strong": "rgb(146, 129, 158)"
+    }
+  },
+  {
+    "screen": "home",
+    "theme": "dark",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(242, 236, 242)",
+      "--text-muted": "rgb(182, 172, 191)",
+      "--surface": "rgb(27, 17, 36)",
+      "--surface-muted": "rgb(35, 21, 48)",
+      "--primary": "rgb(0, 171, 142)",
+      "--primary-text": "rgb(16, 27, 24)",
+      "--focus-ring": "rgb(0, 171, 142)",
+      "--border-strong": "rgb(106, 85, 119)"
+    }
+  },
+  {
+    "screen": "setup",
+    "theme": "dark",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(242, 236, 242)",
+      "--text-muted": "rgb(182, 172, 191)",
+      "--surface": "rgb(27, 17, 36)",
+      "--surface-muted": "rgb(35, 21, 48)",
+      "--primary": "rgb(0, 171, 142)",
+      "--primary-text": "rgb(16, 27, 24)",
+      "--focus-ring": "rgb(0, 171, 142)",
+      "--border-strong": "rgb(106, 85, 119)"
+    }
+  },
+  {
+    "screen": "evidence",
+    "theme": "dark",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(242, 236, 242)",
+      "--text-muted": "rgb(182, 172, 191)",
+      "--surface": "rgb(27, 17, 36)",
+      "--surface-muted": "rgb(35, 21, 48)",
+      "--primary": "rgb(0, 171, 142)",
+      "--primary-text": "rgb(16, 27, 24)",
+      "--focus-ring": "rgb(0, 171, 142)",
+      "--border-strong": "rgb(106, 85, 119)"
+    }
+  },
+  {
+    "screen": "report",
+    "theme": "dark",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "colours": {
+      "--foreground": "rgb(242, 236, 242)",
+      "--text-muted": "rgb(182, 172, 191)",
+      "--surface": "rgb(27, 17, 36)",
+      "--surface-muted": "rgb(35, 21, 48)",
+      "--primary": "rgb(0, 171, 142)",
+      "--primary-text": "rgb(16, 27, 24)",
+      "--focus-ring": "rgb(0, 171, 142)",
+      "--border-strong": "rgb(106, 85, 119)"
+    }
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "theme": "light",
+    "stage": "evidence",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "stage": "findings",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "stage": "recommendations",
+    "violations": []
+  },
+  {
+    "theme": "light",
+    "stage": "report",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "stage": "evidence",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "stage": "findings",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "stage": "recommendations",
+    "violations": []
+  },
+  {
+    "theme": "dark",
+    "stage": "report",
+    "violations": []
+  }
+]

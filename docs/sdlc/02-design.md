@@ -21,6 +21,8 @@ Turn the agreed first slice into an understandable user journey, defensible asse
 
 ## Work products
 
+Sprint 1 UI design: [approved brief](../superpowers/specs/2026-10-25-sprint-1-ui-design.md), approved by the user as product decision co-owner on 25 October 2026. This approval covers the synthetic UI prototype; screen usability, accessibility and visual acceptance still require implementation evidence. Later method, data, permissions and production architecture decisions remain open.
+
 Service journey and screen flows, information architecture, component/token mapping, method specification, data and access model, import/export contracts, threat review, AI feature specification if applicable, and acceptance examples linked to requirement IDs.
 
 ## Exit evidence
@@ -35,3 +37,19 @@ Service journey and screen flows, information architecture, component/token mapp
 ## AI use
 
 AI may generate design alternatives and prototypes using approved sample data. Subject-matter, design and governance owners check source fidelity and approve the method, permissions and client-facing interpretation.
+
+## 26 October 2026 — Profile intake
+
+The user accepted the separate interactive profile/question/scenario mockup and requested integration on 26 October 2026. [Design](../superpowers/specs/2026-10-26-profile-intake.md) records the local synthetic boundary; real drafting/AI and production governance remain open.
+
+## Connected demo design, 26 October 2026
+
+The user approved the simplified loaded-sample route to an end-to-end demonstration. [Connected demo design](../superpowers/specs/2026-10-26-connected-demo.md) records the scoped behaviour and source/review safeguards. This acceptance defers real file formats and AI drafting; it does not approve a synthesis or heatmap method.
+
+## Finding and recommendation quality, 27 October 2026
+
+D-20 records the user's required quality bar for Sprint 6: substantive findings synthesize evidence across configured themes and roles, cite support and contrary evidence, expose gaps/conflicts, and communicate uncertainty and limits. Recommendations must be practical, trace to accepted findings, and state their rationale and intended outcome. The connected demo's topic-based finding text and generic action text are placeholders and do not meet this bar. The [candidate worked example](../superpowers/specs/2026-10-27-sprint-6-worked-example.md) is ready for the user's review; it tests one topic and explicitly leaves cross-theme method validation open. This is an accepted product quality requirement; the assessment-method owner must still define and evaluate the method and worked examples before substantive analysis is implemented or described as validated. No AI implementation is implied.
+
+On 27 October 2026, the user reviewed the single-topic example as sensible and asked to explore including a heatmap. [Method cases and heatmap questions](../superpowers/specs/2026-10-27-sprint-6-method-cases.md) records the next synthetic review cases and open heatmap decisions. The heatmap request does not approve cell meanings or an aggregation method; D-04 remains open.
+
+The user also reviewed the synthetic method cases as sensible and accepted the [evidence-to-finding workflow](../superpowers/specs/2026-10-27-sprint-6-evidence-method-proposal.md) for the synthetic prototype, acting as its method reviewer/approver (D-21). This does not validate the method for live evidence or client-facing analytical claims. Substantive prototype implementation may proceed against the accepted workflow; heatmap implementation remains gated on separate D-04 approval.

@@ -40,4 +40,4 @@ The [skill strategy](../skills.md) maps installed skills to tasks. Choose a skil
 
 ## What remains open
 
-This framework is a complete set of **process prompts and evidence gates for the current Plan phase**, not a claim that all product decisions are complete. Owners, first-slice scope, assessment method, file formats, data permissions, hosting, AI features, success thresholds and the web stack remain open in the decision log. Fill those with evidence before treating the later stages as build or release ready.
+This framework is a complete set of **process prompts and evidence gates for the current Plan phase**, not a claim that all product decisions are complete. Accountable owners, assessment method, file formats, data permissions, production hosting and persistence, AI features and success thresholds remain open in the decision log. The web stack is Next.js with React; see the [architecture notes](../architecture.md) for its current status and other open architecture choices. Fill the remaining decisions with evidence before treating the later stages as build or release ready.

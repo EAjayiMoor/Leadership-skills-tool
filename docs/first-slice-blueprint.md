@@ -10,7 +10,7 @@ The first demonstration should work for a reference-shaped synthetic assessment 
 
 ## Primary user and outcome
 
-The working primary user is an assessment consultant or lead. In the first slice, they can start an engagement, bring in agreed sample data, progress through the assessment, review system-prepared drafts, and produce an approved cohort report without manually reconstructing the same information across several files. A client sponsor receives only content approved for sharing. This user and review model must be validated with the assessment team.
+The intended primary user is an assessment consultant or lead; the user confirmed they fill this role on 25 October 2026. The target first slice will let them start an engagement, bring in agreed sample data, progress through the assessment, review system-prepared drafts, and produce an approved cohort report without manually reconstructing the same information across several files. A client sponsor receives only content approved for sharing. The outline-level walkthrough is recorded below; acceptance of implemented screens and later review behavior remains outstanding.
 
 ## One complete demonstration journey
 
@@ -28,12 +28,36 @@ This is a **thin end-to-end slice**: one usable path through every important sta
 
 ## Demonstration and test scenarios
 
-1. **Reference-shaped case:** A wholly synthetic client scenario based on the supplied process, with several roles, tailored questions, survey and interview evidence, thematic findings and a reviewed report.
-2. **Different context:** A new synthetic client scenario with a changed organisation or sector, theme set and role-specific questions, configured without code changes. The same journey should produce a distinct, appropriate report.
-3. **Incomplete or conflicting evidence:** Missing role context, unanswered questions and contradictory inputs. The app should flag limitations, avoid unsupported conclusions and let the assessor correct the record.
-4. **Review and access:** A draft recommendation is rejected or edited; a client-facing role cannot see restricted source evidence or unapproved outputs.
+### Profile intake direction
+
+On 25 October 2026, the user as product decision co-owner and intended consultant confirmed that these proposed intake groups broadly match the information gathered before the original survey:
+
+- Assessment purpose: why now, what the client wants to understand and the decisions the assessment should inform.
+- Company context: sector, scale, locations, structure and significant changes underway.
+- Leadership scope: functions, levels, role responsibilities and participant groups.
+- Assessment focus: any existing leadership framework, agreed themes and questions the client wants explored.
+- Available material: role descriptions, background documents, existing questionnaires and other relevant evidence.
+- Engagement expectations: timeline, intended audience and question/finding reviewers.
+
+The agreed direction is a blank guided form for a new assessment, with captured inputs that can be saved and resumed. The three synthetic example scenarios should show completed versions of that same intake. The company/engagement profile informs proposed assessment focus and survey questions; each draft question should expose its profile basis and remain subject to consultant review before use.
+
+The recorded case-study workflow supports role context, themed survey material and tailored interview preparation. The structured intake above is a product proposal validated through this conversation, not a claim that the source documents contain an identical form. The accepted interactive design and 26 October integration define the six sections, required context/outcome/roles and stale question snapshot review. The real question-drafting method remains open. A consistent core set plus context-specific questions is the current recommendation; sources and approval of any core question bank remain open. All prototype material stays synthetic.
+
+The user accepted the mockup and requested integration on 26 October 2026, bringing this focused Sprint 2/3 increment forward. The setup screen now uses the shared editable intake; see [integration evidence](evidence/profile-intake.md). This does not complete either sprint.
+
+### Example and acceptance cases
+
+1. **Reference-shaped case:** A wholly synthetic client scenario shaped around the shared process, with several roles, tailored questions, survey and interview evidence, thematic findings and a reviewed report. Do not copy records from the supplied reports or workbook.
+2. **Large pharma:** A synthetic client scenario in a large pharmaceutical organisation, with its own role groups, themes and role-specific questions, configured without code changes.
+3. **Energy and utilities:** A synthetic client scenario in the energy and utilities sector, with a meaningfully different context, role groups, themes and questions, configured without code changes.
+4. **Incomplete or conflicting evidence:** Missing role context, unanswered questions and contradictory inputs. The app should flag limitations, avoid unsupported conclusions and let the assessor correct the record.
+5. **Review and access:** A draft recommendation is rejected or edited; a client-facing role cannot see restricted source evidence or unapproved outputs.
 
 All scenarios use synthetic or expressly approved anonymised data. The supplied individual reports and thematic workbook are process references, not public test fixtures.
+
+### Consultant walkthrough
+
+On 25 October 2026, the intended consultant reviewed the proposed journey and the reference-shaped, large pharma, and energy and utilities scenario outlines in the project conversation and confirmed they were aligned. This is outline-level validation; usability of implemented screens and the assessment method remain to be validated.
 
 ## What success should demonstrate
 
@@ -51,10 +75,14 @@ Live client evidence, native survey distribution and reminders, automatic transc
 
 ## Decisions at the point they are needed
 
-- Before Sprint 1: choose the web stack, safe synthetic scenarios, priority UI screens and product/technical owners.
+- Before Sprint 1: record the selected Next.js/React stack, safe synthetic scenario outlines, priority UI screens and product/technical owners.
 - Before configuration and ingestion: define the client scenario fields, first input formats and sample schemas. Keep invented scenario facts clearly labelled as synthetic.
 - Before restricted evidence or generated drafts: agree role access, permitted AI inputs, review actions and evaluation examples.
 - Before thematic synthesis: agree how evidence supports a cohort finding and how uncertainty is shown. Define heatmap rules only if a heatmap is included.
 - Before reporting and release: agree the report format, release environment, manual baseline and useful measures of time saved and correction effort.
 
 Record these in the [decision log](decision-log.md) when each feature is planned. The [Plan stage](sdlc/01-plan.md) should test the confirmed journey with assessment users; it does not need to settle later feature details before UI work begins.
+
+## Connected-demo update
+
+D-19 prioritises one complete synthetic demonstration: profile → reviewed questions → explicit prepared evidence → evidence review → sample cohort findings → recommendations → reviewed report preview. Example interview preparation and notes are available in the existing stage navigation. Actual upload formats, real drafting/AI, methods and production permission controls remain separate decisions. [Design and evidence](evidence/connected-demo.md).

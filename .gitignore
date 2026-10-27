@@ -12,6 +12,7 @@ build/
 coverage/
 .expo/
 .next/
+*.tsbuildinfo
 test-results/
 playwright-report/
 
@@ -25,3 +26,7 @@ docs/source/*_original.docx
 # Operating system and editor noise
 .DS_Store
 .idea/
+
+# Local diagnostics and agent working notes
+*.log
+.superpowers/

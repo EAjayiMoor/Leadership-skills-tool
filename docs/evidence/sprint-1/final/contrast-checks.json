@@ -1,0 +1,20 @@
+[
+  {
+    "theme": "light",
+    "bodyText": 18.65,
+    "mutedText": 5.42,
+    "primaryButton": 15.1,
+    "mainFocus": 5.88,
+    "navigationFocus": 5.58,
+    "controlBorder": 3.59
+  },
+  {
+    "theme": "dark",
+    "bodyText": 15.67,
+    "mutedText": 7.89,
+    "primaryButton": 6.05,
+    "mainFocus": 6.26,
+    "navigationFocus": 6.4,
+    "controlBorder": 4.24
+  }
+]

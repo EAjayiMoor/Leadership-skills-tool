@@ -18,6 +18,7 @@ Start with the [operating model](docs/sdlc/00-operating-model.md) for source hie
 | 6 Maintain | [06-maintain.md](docs/sdlc/06-maintain.md) | Monitoring, feedback, fixes and improvement decisions |
 
 Read [AGENTS.md](AGENTS.md) before AI-assisted work. Track unresolved choices in [decision-log.md](docs/decision-log.md), proposed requirements in [requirements-register.md](docs/requirements-register.md), and skill coverage in [skill-audit.md](docs/skill-audit.md).
+Track the current system shape and dated implementation decisions in the [architecture notes](docs/architecture.md).
 
 The [first-slice blueprint](docs/first-slice-blueprint.md) describes the product-owner-confirmed automated assessment journey and its synthetic test scenarios. Test the journey with assessment users as the screens and build tasks take shape.
 
@@ -27,4 +28,50 @@ The [manual-workflow context](docs/manual-workflow-observations.md) records how 
 
 ## Current status
 
-The repository is at **Plan**. The first interface is web-first; its framework has not been chosen. The UI standard's Next.js, Tailwind and component examples are implementation references, not a stack decision. No production architecture, hosting arrangement, heatmap method, or live-client-data processing has been approved. The first prototype should use approved anonymised or synthetic examples.
+The **Sprint 1 UI prototype is implemented for local review**, using Next.js, React and the App Router. It includes three synthetic scenarios, stage navigation, light/dark themes, a design gallery and setup, evidence and report prototypes. A connected synthetic demo now runs from profile/question review through prepared evidence, sample interviews, accepted findings/recommendations and a reviewed report preview. Real processing, production controls and user acceptance remain outstanding. See the [connected-demo evidence](docs/evidence/connected-demo.md). See the [intake integration evidence](docs/evidence/profile-intake.md). See the [UI evidence](docs/evidence/sprint-1-ui.md) and [architecture notes](docs/architecture.md).
+
+Synthetic company profiles and reviewed question drafts can now be created, explicitly saved, reopened and deleted in this browser. Theme preference is also saved. Saved assessments can now load explicit fictional evidence packs and progress through sample interview preparation, reviewed findings and recommendations to a reviewed report preview. The original fixture screens remain separate. Production storage, hosting, assessment method and live-client-data use remain open.
+
+## Run locally
+
+Tested with Node.js 24.18.0 and npm 12.0.2. From the repository root:
+
+```powershell
+npm ci
+npm run dev
+```
+
+Open [the local workspace](http://127.0.0.1:3000). Use the theme menu to choose System, Light or Dark. Open any synthetic scenario, then use the stage panel to explore the screens. Use New assessment to enter a blank profile, or open a synthetic scenario’s Set up stage to inspect its prerequisites. Save draft stores the configuration on this browser only; reopen it from the home page. Question drafting uses labelled example templates with consultant review. For the connected demo, select Set up demo assessment from a scenario, review/save questions, continue to evidence and choose Load demo evidence. Review the evidence, prepare and accept illustrative findings, prepare and accept recommendations, then review the report preview. Changes save locally. Real report approval, export and publication remain unavailable.
+
+The [design gallery](http://127.0.0.1:3000/gallery) is an unlisted development reference for components and visual states. It is outside the assessment workflow and has no home-page or navigation links; direct access is not access-controlled.
+
+## Check the UI
+
+```powershell
+npm run lint
+npm run typecheck
+npm run build
+npx playwright install chromium --only-shell
+npm test
+```
+
+Browser checks run against the production build on port 3100; Playwright starts the server automatically. Build after application changes before running the suite. A prestarted server can be used through the optional `PLAYWRIGHT_TEST_BASE_URL` environment variable. Chromium is the current automated browser gate; cross-browser and assistive-technology review remain outstanding.
+
+With the development server running, `npm run capture:ui` captures the four main screens in both themes and mobile views under a new run directory in `docs/evidence/sprint-1/`. `UI_BASE_URL` can point capture at a production server, and `UI_CAPTURE_DIR` can select a named evidence directory.
+
+CI is configured in `.github/workflows/checks.yml`; its remote execution has not yet been observed. No cloud deployment or live-data release is included in this prototype.
+
+Connected-demo scope, verification and limitations: [evidence](docs/evidence/connected-demo.md). File uploads, AI drafting and live-data permissions are deferred.
+
+## Run the connected demo
+
+1. Open a scenario from the home page and choose **Set up demo assessment**.
+2. Inspect the prefilled profile, choose **Review sample questions**, confirm the question review, use the set in the scenario and **Save draft**.
+3. **Continue to evidence**, then **Load demo evidence**. Inspect the captured question/source details and **Confirm evidence review**.
+4. Explore the sample interview stages if useful, then continue to findings. **Prepare demo findings** creates blank claim drafts. Open **Compare sources**, read passages across topics and roles, and mark each useful passage as supporting, qualifying, contradicting or context. Write the claim, scope, differing-evidence summary and limitations, then explicitly accept or reject it.
+5. Continue to recommendations and prepare a blank draft for each accepted finding. Write the action, rationale and intended outcome, with an optional follow-up check. Accept or reject the recommendation separately. If no action is justified, record the reason and **Confirm no recommendation** instead.
+6. **Preview report**, inspect the accepted cohort text and confirm demo report review. Reload to show the saved state; edit a finding to demonstrate review invalidation.
+
+This walkthrough is intentionally synthetic. Source links open the exact passage; report export stays disabled.
+
+Sprint 6 adds consultant-guided synthesis under D-21: the consultant writes and reviews the interpretation, with source comparison and required review fields. It does not call an AI model or infer scores. Existing saved demo records remain readable. See the [Sprint 6 evidence](docs/evidence/sprint-6-guided-synthesis.md) for checks and remaining limits.
