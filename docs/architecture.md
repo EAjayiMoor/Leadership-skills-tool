@@ -1,6 +1,6 @@
 # Architecture notes
 
-Status: local connected synthetic demo with consultant-guided synthesis from profile to reviewed report preview. Updated 27 October 2026.
+Status: local connected synthetic demo with consultant-guided synthesis and an optional pharma worked example. Updated 28 October 2026.
 
 This file tracks how the product is intended to be structured and how that structure changes during development. It records decisions and implementation evidence; it does not approve production data use.
 
@@ -65,6 +65,12 @@ For each material change, record:
 Keep the current position above accurate and add dated notes below as implementation progresses. Do not include client evidence, identifying assessment records, credentials or secrets.
 
 ## Development notes
+
+### 28 October 2026 — Lean pharma demo
+
+The user approved D-22 to reduce typing during demonstrations. `demo/worked-example.ts` resolves the reviewed Decision clarity example against the current pharma run's exact question and prepared passages, using source type, participant code and content rather than question order or ordinal source labels. Missing, edited, incomplete or stale evidence makes the shortcut unavailable with an explanation.
+
+One action supplies an editable finding and linked recommendation as drafts. `changeFinding` and `changeRecommendation` retain review invalidation; loading grants no approval. Existing target content requires explicit replacement confirmation, while unrelated findings remain intact. The worked finding appears first and other cards collapse without deleting their content. Optional `workedExample` markers identify prepared material and retain schema-1 compatibility. Existing browser persistence, save failures and unsaved-change guards remain the storage path. See [design and validation evidence](evidence/demo-worked-example.md).
 
 ### 27 October 2026 — Guided synthesis prototype
 

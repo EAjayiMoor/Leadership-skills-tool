@@ -74,4 +74,6 @@ Connected-demo scope, verification and limitations: [evidence](docs/evidence/con
 
 This walkthrough is intentionally synthetic. Source links open the exact passage; report export stays disabled.
 
+For a lean **pharma demo**, follow steps 1–3, continue directly to findings and choose **Use pharma worked example**. Inspect the prepared finding and **Accept finding**, continue to the already filled recommendation and **Accept recommendation**, then **Preview report** and **Confirm demo report review**. No finding or recommendation typing is needed. Existing edits require confirmation before replacement. This shortcut needs the original Decision clarity question and its prepared pharma evidence. [Design and evidence](docs/evidence/demo-worked-example.md).
+
 Sprint 6 adds consultant-guided synthesis under D-21: the consultant writes and reviews the interpretation, with source comparison and required review fields. It does not call an AI model or infer scores. Existing saved demo records remain readable. See the [Sprint 6 evidence](docs/evidence/sprint-6-guided-synthesis.md) for checks and remaining limits.

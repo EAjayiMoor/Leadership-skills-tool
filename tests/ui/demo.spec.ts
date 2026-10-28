@@ -90,6 +90,7 @@ async function start(page: import("@playwright/test").Page, pack: string) {
   await page.getByRole("button", { name: "Save draft", exact: true }).click();
   await expect(page).toHaveURL(/\/drafts\//);
   await page.getByRole("button", { name: "Continue to evidence" }).click();
+  await expect(page).toHaveURL(/\/evidence$/);
 }
 async function authorFinding(page: import("@playwright/test").Page) {
   await page
@@ -136,6 +137,147 @@ async function authorRecommendation(page: import("@playwright/test").Page) {
     .getByLabel("Recommendation R1 follow-up check")
     .fill("Review the next three exception handoffs with the sponsor.");
 }
+test("pharma worked example reaches a reviewed report without typing and protects existing edits", async ({
+  page,
+}, testInfo) => {
+  await start(page, "pharma");
+  await page
+    .getByRole("button", { name: "Load demo evidence", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Confirm evidence review", exact: true })
+    .click();
+  await page
+    .getByRole("link", { name: "Continue to findings", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/findings$/);
+  const base = page.url().replace(/\/findings$/, "");
+  const shortcut = page.getByRole("button", {
+    name: "Use pharma worked example",
+    exact: true,
+  });
+  await expect(shortcut).toBeVisible();
+  await shortcut.click();
+  await expect(page.getByLabel("Finding F1 wording")).toHaveValue(
+    /shared planning helps/i,
+  );
+  await expect(
+    page.getByRole("link", {
+      name: "Continue to recommendations",
+      exact: true,
+    }),
+  ).toHaveCount(0);
+  for (const theme of ["light", "dark"]) {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.getByLabel("Colour theme").selectOption(theme);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    const axe = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    expect(
+      axe.violations.filter(
+        (v) => v.impact === "serious" || v.impact === "critical",
+      ),
+    ).toEqual([]);
+    await page
+      .getByRole("heading", { name: "Quick demo", exact: true })
+      .evaluate((element) =>
+        element.parentElement!.scrollIntoView({ block: "start" }),
+      );
+    await page.screenshot({
+      path: testInfo.outputPath(`worked-example-${theme}.png`),
+    });
+  }
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page
+    .getByRole("button", { name: "Accept finding F1", exact: true })
+    .click();
+  await page
+    .getByRole("link", { name: "Continue to recommendations", exact: true })
+    .click();
+  await expect(page.getByLabel("Recommendation R1 action")).toHaveValue(
+    /handoff note/i,
+  );
+  await page
+    .getByRole("button", { name: "Accept recommendation R1", exact: true })
+    .click();
+  await page.getByRole("link", { name: "Preview report", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Confirm demo report review", exact: true })
+    .click();
+  await page.reload();
+  await expect(
+    page.getByText("Reviewed demo preview", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page
+      .getByLabel("Demo report")
+      .getByRole("link", { name: /Inspect source/ }),
+  ).toHaveCount(3);
+  await page.goto(`${base}/findings`);
+  page.once("dialog", (dialog) => dialog.dismiss());
+  await shortcut.click();
+  await page.goto(`${base}/report`);
+  await expect(
+    page.getByText("Reviewed demo preview", { exact: true }),
+  ).toBeVisible();
+  await page.goto(`${base}/findings`);
+  await page
+    .getByLabel("Finding F1 wording")
+    .fill("My edited consultant finding.");
+  page.once("dialog", (dialog) => dialog.dismiss());
+  await shortcut.click();
+  await expect(page.getByLabel("Finding F1 wording")).toHaveValue(
+    "My edited consultant finding.",
+  );
+  page.once("dialog", (dialog) => dialog.accept());
+  await shortcut.click();
+  await page.goto(`${base}/report`);
+  await expect(
+    page.getByText("Reviewed demo preview", { exact: true }),
+  ).toHaveCount(0);
+  await expect(page.getByLabel("Demo report")).toContainText(
+    "No accepted findings yet.",
+  );
+});
+test("pharma worked example keeps earlier finding drafts accessible", async ({
+  page,
+}) => {
+  await start(page, "pharma");
+  await page
+    .getByRole("button", { name: "Load demo evidence", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Confirm evidence review", exact: true })
+    .click();
+  await page
+    .getByRole("link", { name: "Continue to findings", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Prepare demo findings", exact: true })
+    .click();
+  await page
+    .getByLabel("Finding F1 wording")
+    .fill("Keep my earlier draft wording.");
+  await page
+    .getByRole("button", { name: "Use pharma worked example", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Accept finding F2", exact: true }),
+  ).toBeEnabled();
+  await expect(page.locator(".demo-other-finding")).toHaveCount(3);
+  await expect(page.getByLabel("Finding F1 wording")).toBeHidden();
+  await page.reload();
+  await page.getByText(/^Other finding · F1 ·/).click();
+  await expect(page.getByLabel("Finding F1 wording")).toBeVisible();
+  await expect(page.getByLabel("Finding F1 wording")).toHaveValue(
+    "Keep my earlier draft wording.",
+  );
+});
 test("guided synthesis requires evidence and bounded claims, preserves cross-theme links and structures the report", async ({
   page,
 }, testInfo) => {

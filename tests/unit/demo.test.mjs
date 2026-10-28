@@ -21,6 +21,10 @@ import {
   saveDraft,
   STORAGE_KEY,
 } from "../../src/features/intake/storage.ts";
+import {
+  loadPharmaWorkedExample as loadWorked,
+  pharmaWorkedExample,
+} from "../../src/features/demo/worked-example.ts";
 const draft = (id = "demo-one") => {
   const profile = {
     ...emptyProfile(),
@@ -40,6 +44,143 @@ const draft = (id = "demo-one") => {
 function reviewedDemo() {
   return prepareFindings(reviewEvidence(loadDemo(draft(), "pharma")));
 }
+test("worked example supplies complete same-run drafts without granting review", () => {
+  let d = loadWorked(reviewEvidence(loadDemo(draft(), "pharma")));
+  assert.equal(d.demo.findings.length, 1);
+  const f = d.demo.findings[0],
+    r = d.demo.recommendations[0];
+  assert.equal(f.workedExample, "pharma-decision-clarity");
+  assert.equal(r.workedExample, f.workedExample);
+  assert.equal(f.decision, "draft");
+  assert.equal(r.decision, "draft");
+  assert.equal(f.evidence.length, 3);
+  assert.ok(
+    f.evidence.every((e) =>
+      d.demo.records.some(
+        (source) =>
+          source.id === e.sourceId && source.question.id === f.questionId,
+      ),
+    ),
+  );
+  assert.ok(
+    f.scope &&
+      f.qualifyingSummary &&
+      f.limitations &&
+      r.action &&
+      r.rationale &&
+      r.intendedOutcome,
+  );
+  assert.equal(canReviewReport(d), false);
+  assert.throws(() => changeRecommendation(d, r.id, { decision: "accepted" }));
+  d = changeFinding(d, f.id, { decision: "accepted" });
+  d = changeRecommendation(d, r.id, { decision: "accepted" });
+  d = reviewReport(d);
+  const storage = {
+    getItem: () => JSON.stringify({ version: 1, drafts: [d] }),
+    setItem() {},
+  };
+  assert.deepEqual(readDrafts(storage).drafts[0], d);
+});
+test("worked example refuses unavailable, changed or stale source snapshots", () => {
+  const original = reviewEvidence(loadDemo(draft(), "pharma"));
+  const stale = structuredClone(original);
+  stale.profile.why = "Changed profile";
+  const changed = structuredClone(original);
+  changed.demo.records.find(
+    (r) => r.question.topic === "Decision clarity",
+  ).text = "Unrelated material";
+  const missing = structuredClone(original);
+  missing.demo.records = missing.demo.records.filter(
+    (r) => !(r.question.topic === "Decision clarity" && r.type === "Interview"),
+  );
+  const editedQuestion = draft();
+  editedQuestion.questionSet.questions.find(
+    (q) => q.topic === "Decision clarity",
+  ).text = "An edited question";
+  for (const d of [
+    loadDemo(draft(), "pharma"),
+    reviewEvidence(loadDemo(draft(), "reference")),
+    stale,
+    changed,
+    missing,
+    reviewEvidence(loadDemo(editedQuestion, "pharma")),
+  ]) {
+    assert.equal(pharmaWorkedExample(d).available, false);
+    assert.throws(() => loadWorked(d));
+  }
+});
+test("worked example uses captured question content when prompts are reordered", () => {
+  const d = draft();
+  d.questionSet.questions = [
+    d.questionSet.questions[1],
+    d.questionSet.questions[0],
+    ...d.questionSet.questions.slice(2),
+  ];
+  const next = loadWorked(reviewEvidence(loadDemo(d, "pharma")));
+  assert.equal(next.demo.findings[0].questionId, "Q2");
+  assert.ok(
+    next.demo.findings[0].evidence.every((e) =>
+      /-Q1-(S1|S2|I3)$/.test(e.sourceId),
+    ),
+  );
+});
+test("worked example protects edits and only reopens affected decisions on confirmed replacement", () => {
+  let d = writeFinding(reviewedDemo(), 0);
+  d = changeFinding(d, "F1", { decision: "accepted" });
+  d = loadWorked(d);
+  const f = d.demo.findings.find((item) => item.workedExample),
+    r = d.demo.recommendations[0];
+  d = changeFinding(d, f.id, { decision: "accepted" });
+  d = changeRecommendation(d, r.id, { action: "An edited consultant action." });
+  d = changeRecommendation(d, r.id, { decision: "accepted" });
+  d = reviewReport(d);
+  const before = structuredClone(d);
+  assert.equal(pharmaWorkedExample(d).needsConfirmation, true);
+  assert.throws(() => loadWorked(d));
+  assert.deepEqual(d, before);
+  const next = loadWorked(d, true);
+  assert.equal(
+    next.demo.findings.find((item) => item.id === f.id).decision,
+    "draft",
+  );
+  assert.equal(next.demo.recommendations[0].decision, "draft");
+  assert.equal(next.demo.reportReviewed, false);
+  assert.deepEqual(
+    next.demo.findings.find((item) => item.id === "F1"),
+    before.demo.findings.find((item) => item.id === "F1"),
+  );
+});
+test("saved worked-example markers reject unknown example identities", () => {
+  const d = loadWorked(reviewEvidence(loadDemo(draft(), "pharma")));
+  d.demo.findings[0].workedExample = "unknown-example";
+  const storage = {
+    getItem: () => JSON.stringify({ version: 1, drafts: [d] }),
+    setItem() {},
+  };
+  assert.ok(readDrafts(storage).error);
+});
+test("manual recommendations after a worked example keep unique IDs and save correctly", () => {
+  let d = loadWorked(reviewedDemo());
+  d = writeFinding(
+    d,
+    d.demo.findings.findIndex((finding) => finding.id === "F1"),
+  );
+  d = changeFinding(d, "F1", { decision: "accepted" });
+  d = prepareRecommendations(d);
+  assert.equal(d.demo.recommendations.length, 2);
+  assert.equal(new Set(d.demo.recommendations.map((item) => item.id)).size, 2);
+  assert.deepEqual(
+    new Set(d.demo.recommendations.map((item) => item.findingId)),
+    new Set(["F1", "F2"]),
+  );
+  const values = new Map();
+  const storage = {
+    getItem: (key) => values.get(key) ?? null,
+    setItem: (key, value) => values.set(key, value),
+  };
+  saveDraft(storage, d);
+  assert.deepEqual(readDrafts(storage).drafts[0], d);
+});
 test("prepareFindings creates unsubstantiated drafts without invented text", () => {
   const d = reviewedDemo();
   assert.equal(d.demo.findings[0].text, "");

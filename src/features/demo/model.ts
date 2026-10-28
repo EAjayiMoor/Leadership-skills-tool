@@ -5,6 +5,12 @@ import {
 } from "../intake/model.ts";
 import { demoPacks, samplePassages, type DemoPack } from "./packs.ts";
 export type Decision = "draft" | "accepted" | "rejected";
+export function nextDemoId(prefix: "F" | "R", items: { id: string }[]) {
+  const used = new Set(items.map((item) => item.id));
+  let index = 1;
+  while (used.has(`${prefix}${index}`)) index++;
+  return `${prefix}${index}`;
+}
 export type EvidenceRelation =
   "supports" | "qualifies" | "contradicts" | "context";
 export interface FindingEvidence {
@@ -32,6 +38,7 @@ export interface DemoFinding {
   qualifyingSummary?: string;
   limitations?: string;
   alternative?: string;
+  workedExample?: "pharma-decision-clarity";
 }
 export interface DemoRecommendation {
   id: string;
@@ -42,6 +49,7 @@ export interface DemoRecommendation {
   rationale?: string;
   intendedOutcome?: string;
   followUpCheck?: string;
+  workedExample?: "pharma-decision-clarity";
 }
 export type FindingPatch = Partial<
   Pick<
@@ -328,7 +336,7 @@ export function prepareRecommendations(
   for (const f of accepted) {
     if (!recommendations.some((r) => r.findingId === f.id))
       recommendations.push({
-        id: `R${f.id.slice(1)}`,
+        id: nextDemoId("R", recommendations),
         findingId: f.id,
         text: "",
         action: "",

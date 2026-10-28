@@ -68,6 +68,8 @@ export function isDemoRun(v: unknown, ownerId: string): v is DemoRun {
       (f) =>
         ["id", "questionId", "title", "text"].every((k) => text(f[k])) &&
         decision(f.decision) &&
+        (f.workedExample === undefined ||
+          f.workedExample === "pharma-decision-clarity") &&
         (f.decision !== "accepted" || (f.text as string).trim()) &&
         questionIds.has(f.questionId) &&
         ["scope", "qualifyingSummary", "limitations", "alternative"].every(
@@ -138,6 +140,8 @@ export function isDemoRun(v: unknown, ownerId: string): v is DemoRun {
             (k) => r[k] === undefined,
           )) &&
         decision(r.decision) &&
+        (r.workedExample === undefined ||
+          r.workedExample === "pharma-decision-clarity") &&
         text(r.findingId, 120) &&
         findings.some((f) => f.id === r.findingId) &&
         (r.decision !== "accepted" ||

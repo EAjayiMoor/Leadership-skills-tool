@@ -59,6 +59,9 @@ export function DemoRecommendations({
             </Badge>
             <h2>{r.id} · Proposed action</h2>
           </div>
+          {r.workedExample && (
+            <Badge tone="purple">Prepared synthetic worked example</Badge>
+          )}
           <p>
             Basis: {r.findingId} ·{" "}
             {findings.find((f) => f.id === r.findingId)!.title}

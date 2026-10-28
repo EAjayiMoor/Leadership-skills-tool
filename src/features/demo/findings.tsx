@@ -8,6 +8,7 @@ import {
   type FindingPatch,
 } from "./model";
 import { SourceLinks, sourceLabel } from "./source-links";
+import { pharmaWorkedExample } from "./worked-example";
 const fields = [
   ["text", "wording", "Write a claim grounded in the passages you selected."],
   ["scope", "scope", "Which role groups and situations does this claim cover?"],
@@ -114,12 +115,18 @@ export function DemoFindings({
   draft,
   onPrepare,
   onChange,
+  onWorkedExample,
 }: {
   draft: AssessmentDraft;
   onPrepare: () => void;
   onChange: (id: string, patch: FindingPatch) => void;
+  onWorkedExample: () => void;
 }) {
   const demo = draft.demo!;
+  const example = pharmaWorkedExample(draft);
+  const hasWorkedExample = demo.findings.some(
+    (finding) => finding.workedExample,
+  );
   if (!demo.evidenceReviewed)
     return (
       <Notice title="Review the evidence first">
@@ -136,101 +143,141 @@ export function DemoFindings({
         decision. This synthetic workflow has not been validated for live
         assessments.
       </Notice>
+      {demo.pack === "pharma" && (
+        <section className="card card-body stack">
+          <h2>Quick demo</h2>
+          <p>
+            Load a prepared synthetic finding and linked recommendation. Inspect
+            the sources, edit if needed, then accept each draft to progress to
+            the report.
+          </p>
+          <div>
+            <Button onClick={onWorkedExample} disabled={!example.available}>
+              Use pharma worked example
+            </Button>
+          </div>
+          {!example.available && <p className="field-hint">{example.reason}</p>}
+        </section>
+      )}
+      <p className="field-hint">
+        One accepted finding is enough to continue with this demo. Other drafts
+        can stay unfinished.
+      </p>
       {!demo.findings.length ? (
         <Button onClick={onPrepare}>Prepare demo findings</Button>
       ) : (
-        demo.findings.map((f) => (
-          <article className="card card-body stack" key={f.id}>
-            <div className="intake-inline">
-              <Badge
-                tone={
-                  f.decision === "accepted"
-                    ? "success"
-                    : f.decision === "rejected"
-                      ? "neutral"
-                      : "warning"
-                }
-              >
-                {f.decision}
-              </Badge>
-              <h2>
-                {f.id} · {f.title}
-              </h2>
-            </div>
-            <label className="field">
-              Finding {f.id} title
-              <input
-                maxLength={4000}
-                value={f.title}
-                onChange={(e) => onChange(f.id, { title: e.target.value })}
-              />
-            </label>
-            {f.evidence !== undefined ? (
-              <EvidenceComparison
-                draft={draft}
-                finding={f}
-                onChange={(patch) => onChange(f.id, patch)}
-              />
-            ) : (
-              <>
-                <p className="field-hint">
-                  This saved example uses the earlier review format.
-                </p>
-                <h3>Supporting sample sources</h3>
-                <SourceLinks draftId={draft.id} ids={f.sourceIds} />
-                <h3>Differing sample sources</h3>
-                <SourceLinks draftId={draft.id} ids={f.counterSourceIds} />
-              </>
-            )}
-            {fields
-              .filter(([key]) => key === "text" || f.evidence !== undefined)
-              .map(([key, label, hint]) => (
-                <label className="field" key={key}>
-                  Finding {f.id} {label}
-                  <textarea
-                    maxLength={4000}
-                    value={f[key] ?? ""}
-                    onChange={(e) => onChange(f.id, { [key]: e.target.value })}
-                  />
-                  <span className="field-hint">{hint}</span>
-                </label>
-              ))}
-            {f.evidence !== undefined && (
-              <>
-                <h3>Selected source references</h3>
-                {f.evidence.length ? (
-                  <SourceLinks draftId={draft.id} ids={findingEvidenceIds(f)} />
-                ) : (
-                  <p className="field-hint">No sources linked yet.</p>
-                )}
-              </>
-            )}
-            <p className="field-hint">
-              Two fictional response codes cannot establish cohort-wide
-              prevalence or capability. Acceptance requires a claim, scope,
-              differing-evidence summary, limitations and a supporting source.
-            </p>
-            <div className="intake-inline">
-              <Button
-                disabled={
-                  !canAcceptFinding(draft, f.id) || f.decision === "accepted"
-                }
-                aria-label={`Accept finding ${f.id}`}
-                onClick={() => onChange(f.id, { decision: "accepted" })}
-              >
-                Accept finding
-              </Button>
-              <Button
-                className="button-secondary"
-                disabled={f.decision === "rejected"}
-                aria-label={`Reject finding ${f.id}`}
-                onClick={() => onChange(f.id, { decision: "rejected" })}
-              >
-                Reject finding
-              </Button>
-            </div>
-          </article>
-        ))
+        demo.findings.map((f) => {
+          const card = (
+            <article className="card card-body stack" key={f.id}>
+              <div className="intake-inline">
+                <Badge
+                  tone={
+                    f.decision === "accepted"
+                      ? "success"
+                      : f.decision === "rejected"
+                        ? "neutral"
+                        : "warning"
+                  }
+                >
+                  {f.decision}
+                </Badge>
+                <h2>
+                  {f.id} · {f.title}
+                </h2>
+              </div>
+              {f.workedExample && (
+                <Badge tone="purple">Prepared synthetic worked example</Badge>
+              )}
+              <label className="field">
+                Finding {f.id} title
+                <input
+                  maxLength={4000}
+                  value={f.title}
+                  onChange={(e) => onChange(f.id, { title: e.target.value })}
+                />
+              </label>
+              {f.evidence !== undefined ? (
+                <EvidenceComparison
+                  draft={draft}
+                  finding={f}
+                  onChange={(patch) => onChange(f.id, patch)}
+                />
+              ) : (
+                <>
+                  <p className="field-hint">
+                    This saved example uses the earlier review format.
+                  </p>
+                  <h3>Supporting sample sources</h3>
+                  <SourceLinks draftId={draft.id} ids={f.sourceIds} />
+                  <h3>Differing sample sources</h3>
+                  <SourceLinks draftId={draft.id} ids={f.counterSourceIds} />
+                </>
+              )}
+              {fields
+                .filter(([key]) => key === "text" || f.evidence !== undefined)
+                .map(([key, label, hint]) => (
+                  <label className="field" key={key}>
+                    Finding {f.id} {label}
+                    <textarea
+                      maxLength={4000}
+                      value={f[key] ?? ""}
+                      onChange={(e) =>
+                        onChange(f.id, { [key]: e.target.value })
+                      }
+                    />
+                    <span className="field-hint">{hint}</span>
+                  </label>
+                ))}
+              {f.evidence !== undefined && (
+                <>
+                  <h3>Selected source references</h3>
+                  {f.evidence.length ? (
+                    <SourceLinks
+                      draftId={draft.id}
+                      ids={findingEvidenceIds(f)}
+                    />
+                  ) : (
+                    <p className="field-hint">No sources linked yet.</p>
+                  )}
+                </>
+              )}
+              <p className="field-hint">
+                Two fictional response codes cannot establish cohort-wide
+                prevalence or capability. Acceptance requires a claim, scope,
+                differing-evidence summary, limitations and a supporting source.
+              </p>
+              <div className="intake-inline">
+                <Button
+                  disabled={
+                    !canAcceptFinding(draft, f.id) || f.decision === "accepted"
+                  }
+                  aria-label={`Accept finding ${f.id}`}
+                  onClick={() => onChange(f.id, { decision: "accepted" })}
+                >
+                  Accept finding
+                </Button>
+                <Button
+                  className="button-secondary"
+                  disabled={f.decision === "rejected"}
+                  aria-label={`Reject finding ${f.id}`}
+                  onClick={() => onChange(f.id, { decision: "rejected" })}
+                >
+                  Reject finding
+                </Button>
+              </div>
+            </article>
+          );
+          return hasWorkedExample && !f.workedExample ? (
+            <details className="card card-body demo-other-finding" key={f.id}>
+              <summary>
+                Other finding · {f.id} · {f.title} · {f.decision}
+              </summary>
+              {card}
+            </details>
+          ) : (
+            card
+          );
+        })
       )}
       {demo.findings.some((f) => f.decision === "accepted") && (
         <ActionLink href={`/drafts/${draft.id}/recommendations`}>

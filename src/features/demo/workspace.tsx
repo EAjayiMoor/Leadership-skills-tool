@@ -28,6 +28,7 @@ import { DemoFindings } from "./findings";
 import { DemoRecommendations } from "./recommendations";
 import { DemoReport } from "./report";
 import { DemoInterviewBrief } from "./interviews";
+import { pharmaWorkedExample, loadPharmaWorkedExample } from "./worked-example";
 export function DemoWorkspace({
   initialDraft,
   stage,
@@ -185,6 +186,23 @@ export function DemoWorkspace({
               onChange={(id, patch) =>
                 act(() => changeFinding(draft, id, patch))
               }
+              onWorkedExample={() => {
+                const example = pharmaWorkedExample(draft);
+                if (
+                  example.available &&
+                  example.needsConfirmation &&
+                  !window.confirm(
+                    "Replace the decision-clarity finding and its linked recommendation with the worked example? This reopens their reviews and report review. Other findings are kept.",
+                  )
+                )
+                  return;
+                act(() =>
+                  loadPharmaWorkedExample(
+                    draft,
+                    example.available && example.needsConfirmation,
+                  ),
+                );
+              }}
             />
           )}
           {stage === "recommendations" && (

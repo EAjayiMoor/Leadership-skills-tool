@@ -1767,6 +1767,14 @@ html:has(.stage-dialog[open]) {
   font-weight: 600;
   padding: 4px 0;
 }
+.demo-other-finding > summary {
+  cursor: pointer;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.demo-other-finding > article {
+  margin-top: 16px;
+}
 .synthesis-comparison > p {
   margin-top: 16px;
 }
