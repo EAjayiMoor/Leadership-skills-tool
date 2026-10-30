@@ -28,9 +28,11 @@ The [manual-workflow context](docs/manual-workflow-observations.md) records how 
 
 ## Current status
 
-The **Sprint 1 UI prototype is implemented for local review**, using Next.js, React and the App Router. It includes three synthetic scenarios, stage navigation, light/dark themes, a design gallery and setup, evidence and report prototypes. A connected synthetic demo now runs from profile/question review through prepared evidence, sample interviews, accepted findings/recommendations and a reviewed report preview. Real processing, production controls and user acceptance remain outstanding. See the [connected-demo evidence](docs/evidence/connected-demo.md). See the [intake integration evidence](docs/evidence/profile-intake.md). See the [UI evidence](docs/evidence/sprint-1-ui.md) and [architecture notes](docs/architecture.md).
+The synthetic demo is live on Azure: [Open the assessment workspace](https://leadership-assessment-demo.azurewebsites.net). Anyone with the link can open it. Saved drafts stay in each browser; localhost drafts do not transfer to this address. Use fictional information only. See the [release evidence](docs/evidence/azure-demo-release.md) and [deployment guide](docs/deployment/azure.md).
 
-Synthetic company profiles and reviewed question drafts can now be created, explicitly saved, reopened and deleted in this browser. Theme preference is also saved. Saved assessments can now load explicit fictional evidence packs and progress through sample interview preparation, reviewed findings and recommendations to a reviewed report preview. The original fixture screens remain separate. Production storage, hosting, assessment method and live-client-data use remain open.
+The prototype uses Next.js, React and the App Router. It includes three synthetic scenarios, stage navigation, light/dark themes and setup, evidence and report views. A connected synthetic demo runs from profile/question review through prepared evidence, sample interviews, accepted findings/recommendations and a reviewed report preview. Real processing, production controls and user acceptance remain outstanding. See the [connected-demo evidence](docs/evidence/connected-demo.md), [intake integration evidence](docs/evidence/profile-intake.md), [UI evidence](docs/evidence/sprint-1-ui.md) and [architecture notes](docs/architecture.md).
+
+Synthetic company profiles and reviewed question drafts can be created, explicitly saved, reopened and deleted in this browser. Theme preference is also saved. Saved assessments can load explicit fictional evidence packs and progress through sample interview preparation, reviewed findings and recommendations to a reviewed report preview. The original fixture screens remain separate. Production storage, live-data hosting controls, assessment method and live-client-data use remain open.
 
 ## Run locally
 
@@ -59,7 +61,7 @@ Browser checks run against the production build on port 3100; Playwright starts 
 
 With the development server running, `npm run capture:ui` captures the four main screens in both themes and mobile views under a new run directory in `docs/evidence/sprint-1/`. `UI_BASE_URL` can point capture at a production server, and `UI_CAPTURE_DIR` can select a named evidence directory.
 
-CI is configured in `.github/workflows/checks.yml`; its remote execution has not yet been observed. No cloud deployment or live-data release is included in this prototype.
+CI in `.github/workflows/checks.yml` builds and tests the Linux standalone package before uploading the Azure ZIP artifact. [Release CI passed](https://github.com/EAjayiMoor/Leadership-skills-tool/actions/runs/41075846513). Azure hosting covers the synthetic demo only; live-data release remains open.
 
 Connected-demo scope, verification and limitations: [evidence](docs/evidence/connected-demo.md). File uploads, AI drafting and live-data permissions are deferred.
 

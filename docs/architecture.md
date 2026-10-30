@@ -1,6 +1,6 @@
 # Architecture notes
 
-Status: local connected synthetic demo with consultant-guided synthesis and an optional pharma worked example. Updated 28 October 2026.
+Status: public Azure synthetic demo with consultant-guided synthesis and an optional pharma worked example. Updated 30 October 2026.
 
 This file tracks how the product is intended to be structured and how that structure changes during development. It records decisions and implementation evidence; it does not approve production data use.
 
@@ -10,7 +10,7 @@ This file tracks how the product is intended to be structured and how that struc
 | --- | --- | --- |
 | Web application | Next.js 16.4.3 with React 19.3.1 and TypeScript | Implemented UI prototype; acceptance pending |
 | Next.js router | App Router with shared engagement layout and known scenario/stage routes | Implemented; unknown paths recover through a not-found page |
-| Prototype runtime | Local dev server on 127.0.0.1:3000; built app on port 3100 for validation | Local-only; production hosting remains open |
+| Prototype runtime | Azure App Service Node 24; local development and built-app validation remain available | Public synthetic demo under D-23; live-data hosting controls remain open |
 | Prototype data | Static fixtures plus separate saved synthetic demo runs | Browser drafts include explicit demo packs and review decisions; no live client evidence or production approval. |
 | Theme preference | Versioned browser key with System/Light/Dark values | Implemented; storage failures fall back to working in-memory theme selection |
 | Production persistence and hosting | Not decided | Decide before implementing evidence ingestion or processing live assessment data |
@@ -32,7 +32,7 @@ Client controls: intake/review/save, menu, theme, source filter/selection, repor
 
 Browser storage: theme preference, synthetic profiles/questions and prepared demo evidence/reviews; no live client data
 
-Production services, shared storage, identity and hosting: undecided
+Azure Node 24 serves the public synthetic demo; live-data services, shared storage and identity: undecided
 ```
 
 ## Implementation map
@@ -43,7 +43,7 @@ Production services, shared storage, identity and hosting: undecided
 - `src/components/assessment-shell.tsx` and `stage-navigation.tsx`: persistent desktop stage panel, native modal navigation on narrow screens, engagement context and skip link.
 - `src/components/theme-control.tsx` and `src/lib/theme.ts`: pre-paint theme bootstrap, system preference tracking and defensive preference storage. An initial media sync covers a preference change before hydration completes.
 - `src/components/ui/primitives.tsx` and `src/app/globals.css`: shared accessible presentation patterns and semantic theme tokens.
-- `tests/`, `playwright.config.ts` and `scripts/capture-ui.mjs`: fixture lookup checks, built-app browser/accessibility checks, and repeatable synthetic screenshots. CI configuration is present but has not run remotely.
+- `tests/`, `playwright.config.ts` and `scripts/capture-ui.mjs`: fixture lookup checks, built-app browser/accessibility checks, and repeatable synthetic screenshots. Linux container CI has passed; see the Azure release evidence.
 
 Most fixture content is rendered on the server. Client components receive only the scenario identity or source/report fields needed by their interactions. There is no model call, import pipeline, backend database, authentication, real approval or report export in Sprint 1.
 
@@ -65,6 +65,12 @@ For each material change, record:
 Keep the current position above accurate and add dated notes below as implementation progresses. Do not include client evidence, identifying assessment records, credentials or secrets.
 
 ## Development notes
+
+### 30 October 2026 — Public Azure synthetic demo
+
+D-23 implements the user-approved anyone-with-link demo on the existing UK West Linux App Service plan. CI builds/runs the standalone Next.js package in Linux, tests it, and exports a ZIP with checksum and source marker. `scripts/deploy-azure-node.ps1` verifies those identities and project ownership before deploying to built-in `NODE|24-lts` with `HOSTNAME=0.0.0.0 node server.js`. HTTPS, health checks and Always On are configured. The initial private-container route could not obtain a new registry-pull role because Azure denied role-assignment permission; the delivered Node route requires no IAM grant or registry credentials.
+
+Azure serves application files only. Assessment state remains browser-local and separate for each origin; no database, authenticated review or publication service is added. The public link, exact release source/package, live checks and recovery results are in the [release evidence](evidence/azure-demo-release.md). Repeat deployment and recovery are in the [operator guide](deployment/azure.md). Live-data and wider Sprint 8 pilot gates remain open.
 
 ### 28 October 2026 — Lean pharma demo
 

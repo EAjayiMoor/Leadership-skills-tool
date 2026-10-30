@@ -2,17 +2,35 @@
 
 The user requested Azure hosting alongside their portfolio tools and approved anyone-with-link access on 30 October 2026. This deployment hosts the existing synthetic prototype. Saving remains local to each browser and origin; records saved at localhost do not appear automatically at the Azure URL.
 
-## Infrastructure and package
+## Current hosting route: Azure Node.js
+
+The signed-in deployment account can create/deploy apps but cannot grant `Microsoft.Authorization/roleAssignments/write`. The initial container-pull role grant was denied. The delivered route therefore uses the existing plan's built-in `NODE|24-lts` runtime and a prebuilt Linux standalone ZIP, without registry passwords, other apps' identities or a new role grant. The container build remains the CI package producer; the registry-pull route below requires additional administrator permission and is not the current release path.
+
+Download the `leadership-assessment-azure` artifact from a successful repository Actions run. It contains the standalone ZIP and its SHA256 checksum. CI builds/runs the Linux package and completes the synthetic browser suite before producing the artifact. Then use PowerShell 7:
+
+```powershell
+./scripts/deploy-azure-node.ps1 `
+  -SubscriptionId 'your-subscription-guid' `
+  -ResourceGroup 'RG-DEMO-UKW' `
+  -PlanName 'ASP-RGDEMOUKW-b924' `
+  -PackagePath './leadership-assessment-azure.zip' `
+  -SourceCommit 'full-40-character-ci-source-commit' `
+  -PackageSha256 '64-character-checksum-from-the-artifact'
+```
+
+The script verifies the ZIP checksum, embedded source identity and standalone server before any Azure changes. It checks project ownership/plan, configures Node 24 with an explicit startup command, disables server-side rebuilds, deploys the verified package, and verifies public HTTPS plus `/_deployment.json`. No assessment records are stored by this deployment; Azure's persistent home contains application files only. To roll back a Node release, deploy a previously verified ZIP with its original source commit and checksum through the same script. Stop/start recovery commands below also apply to Node hosting.
+
+## Shared infrastructure and package
 
 - Resource group: `RG-DEMO-UKW`; existing UK West Linux plan: `ASP-RGDEMOUKW-b924`.
 - Existing registry: `crmhcdemo`; image repository: `leadership-assessment`.
 - Project app: `leadership-assessment-demo`, with ownership tag `project=leadership-skills-tool`.
 - Node.js 24 multi-stage Docker image, non-root runtime on `0.0.0.0:8080`. Docker builds enable `NEXT_STANDALONE=1`; normal local builds keep their current mode.
 - The deployment script archives only committed application source, public assets and required build manifests/configuration into a temporary context. `.dockerignore` applies the same allowlist and excludes environment files and credentials. Documentation/source evidence, logs, Git internals and local build caches are excluded; no traversal of the Windows `.next` cache is needed.
-- The app's system-assigned managed identity has registry-scoped `AcrPull`. No registry passwords are read or saved. The deployed image is pinned by digest and labelled with its source commit.
+- The optional private-container route needs the app identity to have registry-scoped `AcrPull`; the current account could not grant it. No registry passwords were read or saved. Container builds are pinned by digest and source commit, while the Node release is identified by its package checksum and embedded source commit.
 - HTTPS only, public access, App Service health checks on `/`, startup logs enabled. No central evidence database, authenticated consultant approvals or publication is implied.
 
-## Repeat a deployment
+## Optional private-container deployment
 
 Use PowerShell 7 with Azure CLI signed into the intended subscription. Commit the release source first; the script refuses a dirty Git checkout and refuses to modify an existing app without this project's ownership tag and selected plan.
 
@@ -33,7 +51,7 @@ App creation uses a public Microsoft bootstrap image; the private image is then 
 
 CI independently builds/runs the container and executes the synthetic unit/browser suite against it. Before handing over a release, check deployed pages, source links, assets and the worked-example report journey. Use a fresh browser context so the check represents a visitor without existing local records.
 
-## Recovery
+## Container rollback and shared safe shutdown
 
 For a later release rollback, choose the previously verified digest from release evidence, then update only this app's image:
 

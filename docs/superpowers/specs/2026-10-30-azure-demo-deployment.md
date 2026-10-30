@@ -2,6 +2,8 @@
 
 Status: Azure hosting requested by the user on 30 October 2026, followed by explicit anyone-with-link access approval. Implementation choices below are technical choices based on the inspected portfolio configuration.
 
+Implementation update: the account's registry-role assignment was denied. The active release path uses the same plan's confirmed built-in Node 24 runtime with a checksum/source-verified Linux standalone ZIP from successful container CI. It requires no new registry role, registry password or identity reuse. The original custom-container proposal below remains recorded as an option requiring administrator-granted pull access.
+
 ## Outcome and scope
 
 Host the existing synthetic leadership assessment demo at a public HTTPS Azure URL alongside the user's portfolio tools. Reuse the existing UK West Linux App Service plan and Azure Container Registry in RG-DEMO-UKW. Initial app name: `leadership-assessment-demo`, subject to global Azure name availability.
