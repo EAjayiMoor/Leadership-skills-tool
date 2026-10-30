@@ -20,9 +20,22 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
-      - run: npm run build
+      - name: Build production container
+        run: docker build --build-arg SOURCE_COMMIT="$GITHUB_SHA" --tag leadership-assessment:ci .
+      - name: Start production container
+        run: |
+          docker run --detach --name leadership-ci --publish 127.0.0.1:3100:8080 leadership-assessment:ci
+          curl --silent --show-error --fail --output /dev/null --retry 30 --retry-all-errors --retry-delay 2 http://127.0.0.1:3100/
+          curl --silent --show-error --fail http://127.0.0.1:3100/_deployment.json | jq --exit-status --arg commit "$GITHUB_SHA" '.sourceCommit == $commit'
       - run: npx playwright install --with-deps chromium
       - run: npm test
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3100
+      - name: Container diagnostics and cleanup
+        if: always()
+        run: |
+          docker logs leadership-ci || true
+          docker rm --force leadership-ci || true
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

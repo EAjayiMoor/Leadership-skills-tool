@@ -1,0 +1,60 @@
+# Azure synthetic demo deployment
+
+The user requested Azure hosting alongside their portfolio tools and approved anyone-with-link access on 30 October 2026. This deployment hosts the existing synthetic prototype. Saving remains local to each browser and origin; records saved at localhost do not appear automatically at the Azure URL.
+
+## Infrastructure and package
+
+- Resource group: `RG-DEMO-UKW`; existing UK West Linux plan: `ASP-RGDEMOUKW-b924`.
+- Existing registry: `crmhcdemo`; image repository: `leadership-assessment`.
+- Project app: `leadership-assessment-demo`, with ownership tag `project=leadership-skills-tool`.
+- Node.js 24 multi-stage Docker image, non-root runtime on `0.0.0.0:8080`. Docker builds enable `NEXT_STANDALONE=1`; normal local builds keep their current mode.
+- `.dockerignore` allowlists only application source, public assets and required build manifests/configuration. Documentation/source evidence, environment files, credentials, logs, Git internals and development output are excluded.
+- The app's system-assigned managed identity has registry-scoped `AcrPull`. No registry passwords are read or saved. The deployed image is pinned by digest and labelled with its source commit.
+- HTTPS only, public access, App Service health checks on `/`, startup logs enabled. No central evidence database, authenticated consultant approvals or publication is implied.
+
+## Repeat a deployment
+
+Use PowerShell 7 with Azure CLI signed into the intended subscription. Commit the release source first; the script refuses a dirty Git checkout and refuses to modify an existing app without this project's ownership tag and selected plan.
+
+```powershell
+./scripts/deploy-azure.ps1 `
+  -SubscriptionId '<subscription-id>' `
+  -ResourceGroup 'RG-DEMO-UKW' `
+  -PlanName 'ASP-RGDEMOUKW-b924' `
+  -RegistryName 'crmhcdemo' `
+  -AppName 'leadership-assessment-demo'
+```
+
+The script builds in ACR Tasks, waits for success, resolves the digest, creates or updates only the owned app, configures managed-identity pulls and checks the expected homepage and exact source revision at `/_deployment.json`. It prints the URL, source commit, image digest and build run ID. Record these in the release evidence. The existing shared plan and registry continue to serve the other portfolio apps.
+
+App creation uses a public Microsoft bootstrap image; the private image is then set through generic `linuxFxVersion` configuration after identity access is ready. Avoid `az webapp config container set` with an ACR registry URL: Azure CLI can implicitly retrieve registry admin credentials through that command even when managed identity is enabled.
+
+CI independently builds/runs the container and executes the synthetic unit/browser suite against it. Before handing over a release, check deployed pages, source links, assets and the worked-example report journey. Use a fresh browser context so the check represents a visitor without existing local records.
+
+## Recovery
+
+For a later release rollback, choose the previously verified digest from release evidence, then update only this app's image:
+
+```powershell
+$subscriptionId = 'your-subscription-guid'
+$recoveryConfig = New-TemporaryFile
+@{ linuxFxVersion = 'DOCKER|crmhcdemo.azurecr.io/leadership-assessment@sha256:<previous-digest>'; acrUseManagedIdentityCreds = $true } | ConvertTo-Json | Set-Content -LiteralPath $recoveryConfig.FullName -Encoding utf8NoBOM
+az webapp config set --subscription $subscriptionId --resource-group RG-DEMO-UKW --name leadership-assessment-demo --generic-configurations "@$($recoveryConfig.FullName)"
+az webapp restart --subscription $subscriptionId --resource-group RG-DEMO-UKW --name leadership-assessment-demo
+Remove-Item -LiteralPath $recoveryConfig.FullName
+```
+
+For an immediate safe shutdown of this synthetic demo:
+
+```powershell
+$subscriptionId = 'your-subscription-guid'
+az webapp stop --subscription $subscriptionId --resource-group RG-DEMO-UKW --name leadership-assessment-demo
+az webapp start --subscription $subscriptionId --resource-group RG-DEMO-UKW --name leadership-assessment-demo
+```
+
+Verify the expected homepage and a saved-assessment journey after recovery. There are no server-side assessment records or database migrations in this release. Browser data can still be cleared by its owner; it is not an Azure backup.
+
+## References
+
+- [Azure custom containers and managed identity](https://learn.microsoft.com/en-us/azure/app-service/configure-custom-container)
+- [Next.js standalone deployment output](https://nextjs.org/docs/app/api-reference/config/next-config-js/output)

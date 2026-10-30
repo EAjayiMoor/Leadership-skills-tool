@@ -34,3 +34,9 @@ Release record completed, pilot support ready and rollback or safe shutdown rehe
 ## AI use
 
 AI can prepare checklists and inspect deployment evidence. An authorised human checks the evidence and makes the release, data-use and report-publication decisions.
+
+## 30 October 2026 — Azure synthetic demo
+
+The user requested Azure hosting alongside the existing portfolio tools and selected anyone-with-link access (D-23). Scope: the current synthetic prototype, with browser-local records and no live client evidence. This is a focused Sprint 8/Deploy-stage hosting increment; wider pilot, governance and method gates remain open. The technical owner is the user.
+
+[Deployment design](../superpowers/specs/2026-10-30-azure-demo-deployment.md), [implementation plan](../superpowers/plans/2026-10-30-azure-demo-deployment.md) and [operator guide](../deployment/azure.md) record the reuse of the existing UK West plan/registry, managed identity, exact image/source verification, public HTTPS and recovery steps. Release results will record the actual URL, image digest, browser checks and stop/start rehearsal after deployment.
