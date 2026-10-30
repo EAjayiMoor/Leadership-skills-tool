@@ -42,7 +42,27 @@ try {
   }
 
   Write-Host "Building $imageRepository`:$imageTag in $RegistryName."
-  $build = Invoke-Azure -Command @('acr', 'build', '--registry', $RegistryName, '--image', "$imageRepository`:$imageTag", '--file', 'Dockerfile', '--build-arg', "SOURCE_COMMIT=$sourceCommit", '--platform', 'linux/amd64', '--no-wait', '--query', '{runId:runId,status:status}', '--output', 'json', '.') | ConvertFrom-Json
+  $temporaryParent = [IO.Path]::GetFullPath([IO.Path]::GetTempPath())
+  $contextRoot = Join-Path $temporaryParent ("leadership-azure-" + [Guid]::NewGuid().ToString('N'))
+  New-Item -ItemType Directory -Path $contextRoot | Out-Null
+  try {
+    $archivePath = Join-Path $contextRoot 'source.zip'
+    $contextPath = Join-Path $contextRoot 'context'
+    $sourcePaths = @('Dockerfile', '.dockerignore', 'package.json', 'package-lock.json', 'next.config.ts', 'next-env.d.ts', 'tsconfig.json', 'postcss.config.mjs', 'src')
+    $publicTree = & git ls-tree --name-only $sourceCommit -- public
+    if ($publicTree) { $sourcePaths += 'public' }
+    & git archive --format=zip "--output=$archivePath" $sourceCommit -- @sourcePaths
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot archive the committed application source.' }
+    Expand-Archive -LiteralPath $archivePath -DestinationPath $contextPath
+    $build = Invoke-Azure -Command @('acr', 'build', '--registry', $RegistryName, '--image', "$imageRepository`:$imageTag", '--file', (Join-Path $contextPath 'Dockerfile'), '--build-arg', "SOURCE_COMMIT=$sourceCommit", '--platform', 'linux/amd64', '--no-wait', '--query', '{runId:runId,status:status}', '--output', 'json', $contextPath) | ConvertFrom-Json
+  }
+  finally {
+    $resolvedContextRoot = (Resolve-Path -LiteralPath $contextRoot).ProviderPath
+    if (-not $resolvedContextRoot.StartsWith($temporaryParent, [StringComparison]::OrdinalIgnoreCase) -or [IO.Path]::GetFileName($resolvedContextRoot) -notmatch '^leadership-azure-[a-f0-9]{32}$') {
+      throw 'Refusing cleanup outside the generated temporary build directory.'
+    }
+    Remove-Item -LiteralPath $resolvedContextRoot -Recurse -Force
+  }
   $buildDeadline = [DateTime]::UtcNow.AddMinutes(20)
   $lastStatus = ''
   do {

@@ -8,7 +8,7 @@ The user requested Azure hosting alongside their portfolio tools and approved an
 - Existing registry: `crmhcdemo`; image repository: `leadership-assessment`.
 - Project app: `leadership-assessment-demo`, with ownership tag `project=leadership-skills-tool`.
 - Node.js 24 multi-stage Docker image, non-root runtime on `0.0.0.0:8080`. Docker builds enable `NEXT_STANDALONE=1`; normal local builds keep their current mode.
-- `.dockerignore` allowlists only application source, public assets and required build manifests/configuration. Documentation/source evidence, environment files, credentials, logs, Git internals and development output are excluded.
+- The deployment script archives only committed application source, public assets and required build manifests/configuration into a temporary context. `.dockerignore` applies the same allowlist and excludes environment files and credentials. Documentation/source evidence, logs, Git internals and local build caches are excluded; no traversal of the Windows `.next` cache is needed.
 - The app's system-assigned managed identity has registry-scoped `AcrPull`. No registry passwords are read or saved. The deployed image is pinned by digest and labelled with its source commit.
 - HTTPS only, public access, App Service health checks on `/`, startup logs enabled. No central evidence database, authenticated consultant approvals or publication is implied.
 
