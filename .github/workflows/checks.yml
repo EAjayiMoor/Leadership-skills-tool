@@ -31,6 +31,19 @@ jobs:
       - run: npm test
         env:
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3100
+      - name: Package verified standalone app for Azure Node hosting
+        run: |
+          mkdir azure-package
+          docker cp leadership-ci:/app/. azure-package/
+          (cd azure-package && zip -qry ../leadership-assessment-azure.zip .)
+          sha256sum leadership-assessment-azure.zip > leadership-assessment-azure.zip.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leadership-assessment-azure
+          retention-days: 14
+          path: |
+            leadership-assessment-azure.zip
+            leadership-assessment-azure.zip.sha256
       - name: Container diagnostics and cleanup
         if: always()
         run: |
