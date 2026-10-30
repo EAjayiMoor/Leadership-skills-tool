@@ -27,6 +27,8 @@ Use PowerShell 7 with Azure CLI signed into the intended subscription. Commit th
 
 The script builds in ACR Tasks, waits for success, resolves the digest, creates or updates only the owned app, configures managed-identity pulls and checks the expected homepage and exact source revision at `/_deployment.json`. It prints the URL, source commit, image digest and build run ID. Record these in the release evidence. The existing shared plan and registry continue to serve the other portfolio apps.
 
+To resume deployment of an already built release after a configuration interruption, add `-SourceCommit 'full-40-character-release-commit' -UseExistingImage`. The script requires a successful ACR run for that exact commit tag and verifies the running source marker and configured digest; it does not rebuild the image.
+
 App creation uses a public Microsoft bootstrap image; the private image is then set through generic `linuxFxVersion` configuration after identity access is ready. Avoid `az webapp config container set` with an ACR registry URL: Azure CLI can implicitly retrieve registry admin credentials through that command even when managed identity is enabled.
 
 CI independently builds/runs the container and executes the synthetic unit/browser suite against it. Before handing over a release, check deployed pages, source links, assets and the worked-example report journey. Use a fresh browser context so the check represents a visitor without existing local records.

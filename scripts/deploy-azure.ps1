@@ -6,7 +6,9 @@ param(
   [Parameter(Mandatory)][string]$PlanName,
   [Parameter(Mandatory)][string]$RegistryName,
   [ValidatePattern('^leadership-assessment-demo(-[a-z0-9]+)?$')]
-  [string]$AppName = 'leadership-assessment-demo'
+  [string]$AppName = 'leadership-assessment-demo',
+  [ValidatePattern('^$|^[a-f0-9]{40}$')][string]$SourceCommit = '',
+  [switch]$UseExistingImage
 )
 
 $ErrorActionPreference = 'Stop'
@@ -26,8 +28,9 @@ function Invoke-Azure {
 
 Push-Location -LiteralPath $repositoryRoot
 try {
-  $sourceCommit = (& git rev-parse HEAD).Trim()
-  if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the source commit.' }
+  if (-not $SourceCommit) { $SourceCommit = (& git rev-parse HEAD).Trim() }
+  $commitType = & git cat-file -t $SourceCommit
+  if ($LASTEXITCODE -ne 0 -or $commitType -ne 'commit') { throw 'Cannot identify the source commit.' }
   $pendingChanges = & git status --porcelain
   if ($pendingChanges) { throw 'Commit project changes before building the deployment image.' }
   $imageTag = $sourceCommit.Substring(0, 12)
@@ -41,6 +44,7 @@ try {
     throw 'Refusing to modify an app without this project ownership tag and the selected plan.'
   }
 
+  if (-not $UseExistingImage) {
   Write-Host "Building $imageRepository`:$imageTag in $RegistryName."
   $temporaryParent = [IO.Path]::GetFullPath([IO.Path]::GetTempPath())
   $contextRoot = Join-Path $temporaryParent ("leadership-azure-" + [Guid]::NewGuid().ToString('N'))
@@ -63,6 +67,7 @@ try {
     }
     Remove-Item -LiteralPath $resolvedContextRoot -Recurse -Force
   }
+  } else { Write-Host "Using existing verified image $imageRepository`:$imageTag." }
   $completedRuns = @(Invoke-Azure -Command @('acr', 'task', 'list-runs', '--registry', $RegistryName, '--top', '20', '--query', '[].{runId:runId,status:status,images:outputImages}', '--output', 'json') | ConvertFrom-Json)
   $build = $completedRuns | Where-Object { $_.status -eq 'Succeeded' -and @($_.images | Where-Object { $_.repository -eq $imageRepository -and $_.tag -eq $imageTag }).Count -gt 0 } | Select-Object -First 1
   if (-not $build) { throw 'Cannot identify the successful build for this exact image tag.' }
@@ -79,7 +84,7 @@ try {
     Invoke-Azure -Command @('webapp', 'create', '--resource-group', $ResourceGroup, '--plan', $PlanName, '--name', $AppName, '--container-image-name', 'mcr.microsoft.com/appsvc/staticsite:latest', '--assign-identity', '[system]', '--https-only', 'true', '--tags', "project=$projectTag", 'data=synthetic-demo', "sourceCommit=$sourceCommit", '--output', 'none') | Out-Null
   }
   $principalId = (Invoke-Azure -Command @('webapp', 'identity', 'assign', '--resource-group', $ResourceGroup, '--name', $AppName, '--query', 'principalId', '--output', 'tsv')).Trim()
-  $assignments = @(Invoke-Azure -Command @('role', 'assignment', 'list', '--scope', $registry.id, '--all', '--fill-principal-name', 'false', '--query', '[].{principalId:principalId,roleDefinitionName:roleDefinitionName}', '--output', 'json') | ConvertFrom-Json)
+  $assignments = @(Invoke-Azure -Command @('role', 'assignment', 'list', '--scope', $registry.id, '--fill-principal-name', 'false', '--query', '[].{principalId:principalId,roleDefinitionName:roleDefinitionName}', '--output', 'json') | ConvertFrom-Json)
   if (-not ($assignments | Where-Object { $_.principalId -eq $principalId -and $_.roleDefinitionName -eq 'AcrPull' })) {
     Invoke-Azure -Command @('role', 'assignment', 'create', '--assignee-object-id', $principalId, '--assignee-principal-type', 'ServicePrincipal', '--role', 'AcrPull', '--scope', $registry.id, '--output', 'none') | Out-Null
   }
