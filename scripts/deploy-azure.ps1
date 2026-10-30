@@ -54,7 +54,7 @@ try {
     & git archive --format=zip "--output=$archivePath" $sourceCommit -- @sourcePaths
     if ($LASTEXITCODE -ne 0) { throw 'Cannot archive the committed application source.' }
     Expand-Archive -LiteralPath $archivePath -DestinationPath $contextPath
-    $build = Invoke-Azure -Command @('acr', 'build', '--registry', $RegistryName, '--image', "$imageRepository`:$imageTag", '--file', (Join-Path $contextPath 'Dockerfile'), '--build-arg', "SOURCE_COMMIT=$sourceCommit", '--platform', 'linux/amd64', '--no-wait', '--query', '{runId:runId,status:status}', '--output', 'json', $contextPath) | ConvertFrom-Json
+    Invoke-Azure -Command @('acr', 'build', '--registry', $RegistryName, '--image', "$imageRepository`:$imageTag", '--file', (Join-Path $contextPath 'Dockerfile'), '--build-arg', "SOURCE_COMMIT=$sourceCommit", '--platform', 'linux/amd64', '--no-logs', '--output', 'none', $contextPath) | Out-Null
   }
   finally {
     $resolvedContextRoot = (Resolve-Path -LiteralPath $contextRoot).ProviderPath
@@ -63,21 +63,10 @@ try {
     }
     Remove-Item -LiteralPath $resolvedContextRoot -Recurse -Force
   }
-  $buildDeadline = [DateTime]::UtcNow.AddMinutes(20)
-  $lastStatus = ''
-  do {
-    $buildStatus = (Invoke-Azure -Command @('acr', 'task', 'show-run', '--registry', $RegistryName, '--run-id', $build.runId, '--query', 'status', '--output', 'tsv')).Trim()
-    if ($buildStatus -ne $lastStatus) {
-      Write-Host "ACR build $($build.runId): $buildStatus"
-      $lastStatus = $buildStatus
-    }
-    if ($buildStatus -in @('Failed', 'Canceled', 'Error', 'Timeout')) {
-      throw "Container build $($build.runId) failed. Inspect its ACR task logs before deployment."
-    }
-    if ($buildStatus -eq 'Succeeded') { break }
-    if ([DateTime]::UtcNow -gt $buildDeadline) { throw "Timed out waiting for build $($build.runId)." }
-    Start-Sleep -Seconds 10
-  } while ($true)
+  $completedRuns = @(Invoke-Azure -Command @('acr', 'task', 'list-runs', '--registry', $RegistryName, '--top', '20', '--query', '[].{runId:runId,status:status,images:outputImages}', '--output', 'json') | ConvertFrom-Json)
+  $build = $completedRuns | Where-Object { $_.status -eq 'Succeeded' -and @($_.images | Where-Object { $_.repository -eq $imageRepository -and $_.tag -eq $imageTag }).Count -gt 0 } | Select-Object -First 1
+  if (-not $build) { throw 'Cannot identify the successful build for this exact image tag.' }
+  Write-Host "ACR build $($build.runId): Succeeded"
 
   $imageDigest = (Invoke-Azure -Command @('acr', 'repository', 'show', '--name', $RegistryName, '--image', "$imageRepository`:$imageTag", '--query', 'digest', '--output', 'tsv')).Trim()
   if ($imageDigest -notmatch '^sha256:[a-f0-9]{64}$') { throw 'The registry did not return a valid image digest.' }
