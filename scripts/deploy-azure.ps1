@@ -32,8 +32,8 @@ try {
   if ($pendingChanges) { throw 'Commit project changes before building the deployment image.' }
   $imageTag = $sourceCommit.Substring(0, 12)
 
-  $plan = Invoke-Azure -Command @('appservice', 'plan', 'show', '--resource-group', $ResourceGroup, '--name', $PlanName, '--query', '{id:id,reserved:reserved}', '--output', 'json') | ConvertFrom-Json
-  if (-not $plan.reserved) { throw 'The selected App Service plan must be Linux.' }
+  $plan = Invoke-Azure -Command @('appservice', 'plan', 'show', '--resource-group', $ResourceGroup, '--name', $PlanName, '--query', '{id:id,kind:kind}', '--output', 'json') | ConvertFrom-Json
+  if ($plan.kind -notmatch '(^|,)linux($|,)') { throw 'The selected App Service plan must be Linux.' }
   $registry = Invoke-Azure -Command @('acr', 'show', '--name', $RegistryName, '--query', '{id:id,loginServer:loginServer}', '--output', 'json') | ConvertFrom-Json
   $apps = @(Invoke-Azure -Command @('webapp', 'list', '--resource-group', $ResourceGroup, '--query', '[].{name:name,project:tags.project,serverFarmId:serverFarmId}', '--output', 'json') | ConvertFrom-Json)
   $existing = $apps | Where-Object name -EQ $AppName | Select-Object -First 1
